@@ -17,7 +17,9 @@
 				<input type="checkbox" id="c1" name="c" value="OK">
 			</label>
 			<button type="submit">Connexion</button>
-			<p>Pas encore inscrit ?  <a href="inscription.php">Inscrivez-vous ici.</a></p>
+			<div class="connexion">
+				<p>Pas encore inscrit ?  <a href="inscription.php">Inscrivez-vous ici.</a></p>
+			</div>
 		</form>
 	</body>
 </html>

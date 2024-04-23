@@ -17,7 +17,9 @@
 			<label for="bd">Date de naissance</label>
 				<input type="date" id="bd" name="date_de_naissance" required><br>
 			<button type="submit">S'inscrire</button>
-			<p>Déjà inscrit ? <a href="login.php">Connectez-vous ici.</a></p>
+			<div class="inscription">
+				<p>Déjà inscrit ? <a href="login.php">Connectez-vous ici.</a></p>
+			</div>
 		</form>
 		
 	</body>

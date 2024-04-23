@@ -6,7 +6,7 @@
 		<h1>Bienvenue sur Platos Disciple</h1>
 	</header>
 	<body>
-        <div class="test">
+        <div class="lien">
             <p><a href="inscription.php">Inscription</a></p>
             <P><a href="login.php">Connexion</a></P>
     </div>

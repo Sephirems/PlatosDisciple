@@ -61,10 +61,14 @@ label span {
 }
 
 p {
-  color: black;
+  color: #fff;
 }
 
-.test a {
+.lien a {
     color: #fff;
     font-size: 20px;
+}
+
+.inscription p, .connexion p {
+    color: black;
 }
