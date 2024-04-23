@@ -2,6 +2,8 @@
 if (!empty($_SERVER['HTTPS'])) {
     header("Strict-Transport-Security: max-age=31536000");
 }
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1);
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,24 +23,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = 'INSERT INTO Utilisateur (nom_utilisateur, mot_de_passe, email_utilisateur, numero_de_telephone, date_de_naissance, date_inscription) VALUES (:un, :up, :ue, :uf, :ub, :ui)';
-        $statement = $conn->prepare($sql);
-        $statement->execute([
-            ':un' => $user,
-            ':up' => $hashed_password,
-            ':ue' => $email,
-            ':uf' => $phone,
-            ':ub' => $birthdate,
-            ':ui' => $registration_date
-        ]);
+        // Vérification de l'existence de l'utilisateur avant l'insertion
+        $stmt = $conn->prepare('SELECT COUNT(*) FROM Utilisateur WHERE nom_utilisateur = :un');
+        $stmt->execute([':un' => $user]);
+        $user_exists = $stmt->fetchColumn();
 
-        $_SESSION['message'] = 'Inscription réussie !';
-        header("Location: index.html?message=OK");
-        exit();
+        if ($user_exists) {
+            $_SESSION['message'] = 'Ce nom d\'utilisateur est déjà pris. Veuillez en choisir un autre.';
+        } else {
+            $sql = 'INSERT INTO Utilisateur (nom_utilisateur, mot_de_passe, email_utilisateur, numero_de_telephone, date_de_naissance, date_inscription) VALUES (:un, :up, :ue, :uf, :ub, :ui)';
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                ':un' => $user,
+                ':up' => $hashed_password,
+                ':ue' => $email,
+                ':uf' => $phone,
+                ':ub' => $birthdate,
+                ':ui' => $registration_date
+            ]);
+            $_SESSION['message'] = 'Inscription réussie !';
+            header("Location: index.html?message=OK");
+            exit();
+        }
     } catch (PDOException $e) {
         $_SESSION['message'] = 'Erreur lors de l\'inscription. Veuillez réessayer plus tard.';
-        // Vous pouvez également afficher l'erreur détaillée pour le débogage :
-        // echo 'Erreur lors de l\'insertion des données : ' . $e->getMessage();
     }
 }
 ?>
@@ -47,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Autres balises d'en-tête -->
+    <title>Bienvenue sur Platos Disciple</title>
 </head>
 <body>
     <h1>Inscription</h1>
