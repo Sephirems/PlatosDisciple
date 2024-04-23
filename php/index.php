@@ -10,6 +10,6 @@
             <p><a href="inscription.php">Inscription</a></p>
             <P><a href="login.php">Connexion</a></P>
     </div>
-		
+	<?php display "boobs"><?> 
 	</body>
 </html>
