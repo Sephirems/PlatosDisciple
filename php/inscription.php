@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Vérification de l'existence de l'utilisateur avant l'insertion
         $stmt = $conn->prepare('SELECT COUNT(*) FROM Utilisateur WHERE nom_utilisateur = :un');
         $stmt->execute([':un' => $user]);
         $user_exists = $stmt->fetchColumn();
