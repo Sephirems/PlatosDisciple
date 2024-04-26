@@ -25,7 +25,9 @@ session_start();
             $output = file_get_contents($url);
             $data = json_decode($output, true);
             if($data['total'] > 0){
-                $objectIDs = array_slice($data['objectIDs'], 0, 20);
+                $paging = 8;
+                $pagingrequest = 8;
+                $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $pagingrequest);
                 foreach ($objectIDs as $objectID) {
                     $url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/$objectID";
                     $output = @file_get_contents($url);
@@ -43,15 +45,10 @@ session_start();
                         echo "<p>Country: " . $objectData['country'] . "</P>";
                         echo "<p>Classification: " . $objectData['classification'] . "</p>";
                         if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
-                            echo"<img src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
+                            echo"<img class='image' height=50 src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
                         } else {
                             $restricted_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/restricted";
-                            $thumbnail_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/thumbnail";
-                            if(!@getimagesize($restricted_url)) {
-                                echo "<img src='" . $thumbnail_url . "' alt='" . $objectData['title'] . "' />";
-                            } else {
-                                echo "<img src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
-                            }
+                            echo "<img height=50 src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
                         }
                     }
                 }
