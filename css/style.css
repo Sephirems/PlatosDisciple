@@ -84,6 +84,10 @@ p {
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+    width: 150px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
 }
 .nouvelle-recherche {
     position: fixed;
@@ -95,6 +99,9 @@ p {
     text-decoration: none;
     border-radius: 5px;
     border: 1px solid #ffffff;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
 }
 
 .results-container {
