@@ -42,8 +42,7 @@ $newSearchButton = '';
         if ($output !== FALSE) {
             $data = json_decode($output, true);
             if ($data['total'] > 0) {
-                // Afficher les résultats de la recherche
-                $paging = 6; // Affichage de 6 œuvres par page
+                $paging = 6;
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $pagingrequest = $paging * $currentPage;
                 $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $paging);
@@ -85,7 +84,6 @@ $newSearchButton = '';
                     $nextPage = $currentPage + 1;
                     $showNextButton = "<a href='?page=$nextPage&general_search=" . $_GET['general_search'] . "' class='next-page'>Page suivante</a>";
                 }
-                // Afficher le bouton de recherche seulement si des résultats sont disponibles
                 $newSearchButton = "<a href='http://projet.test/PlatosDisciple/php/recherche_oeuvre.php' class='new-search'>Nouvelle recherche</a>";
             } else {
                 echo "<p>Pas de résultat</p>";
