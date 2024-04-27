@@ -31,6 +31,7 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
             <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
             <input type="submit" value="Rechercher">
         </form>
+        <div class="results-container">
         <?php
         if (!empty($_GET['general_search'])) {
             $searchQuery = urlencode($_GET['general_search']);
@@ -40,7 +41,7 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
             if ($output !== FALSE) {
                 $data = json_decode($output, true);
                 if ($data['total'] > 0) {
-                    $paging = 6; // Nombre d'œuvres à afficher par page
+                    $paging = 6; // Affichage de 6 œuvres par page
                     $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                     $pagingrequest = $paging * $currentPage;
                     $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $paging);
@@ -49,26 +50,31 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
                         $output = @file_get_contents($url);
                         if ($output !== FALSE) {
                             $objectData = json_decode($output, true);
-                            echo "<h2>" . $objectData['title'] . "</h2>";
-                            echo "<p>ObjectID: " . $objectData['objectID'] . "</p>";
-                            echo "<p>Year: " . $objectData['objectDate'] . "</p>";
-                            echo "<p>Culture: " . $objectData['culture'] . "</p>";
-                            echo "<p>Artist: " . $objectData['artistDisplayName'] . "</p>";
-                            echo "<p>ArtistBio: " . $objectData['artistDisplayBio'] . "</p>";
-                            echo "<p>ArtistNationality: " . $objectData['artistNationality'] . "</p>";
-                            echo "<p>EndYear: " . $objectData['objectEndDate'] . "</p>";
-                            echo "<p>Dimensions: " . $objectData['dimensions'] . "</p>";
-                            echo "<p>Country: " . $objectData['country'] . "</p>";
-                            echo "<p>Classification: " . $objectData['classification'] . "</p>";
-                            if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
-                                echo "<img class='image' height=50 src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
-                            } else {
-                                $restricted_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/restricted";
-                                echo "<img height=50 src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
-                            }
+                            ?>
+                            <div class="result-item">
+                                <h2><?php echo $objectData['title']; ?></h2>
+                                <?php
+                                if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
+                                    echo "<img class='image' src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
+                                } else {
+                                    $restricted_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/restricted";
+                                    echo "<img src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
+                                }
+                                ?>
+                                <p>ObjectID: <?php echo $objectData['objectID']; ?></p>
+                                <p>Year: <?php echo $objectData['objectDate']; ?></p>
+                                <p>Culture: <?php echo $objectData['culture']; ?></p>
+                                <p>Artist: <?php echo $objectData['artistDisplayName']; ?></p>
+                                <p>ArtistBio: <?php echo $objectData['artistDisplayBio']; ?></p>
+                                <p>ArtistNationality: <?php echo $objectData['artistNationality']; ?></p>
+                                <p>EndYear: <?php echo $objectData['objectEndDate']; ?></p>
+                                <p>Dimensions: <?php echo $objectData['dimensions']; ?></p>
+                                <p>Country: <?php echo $objectData['country']; ?></p>
+                                <p>Classification: <?php echo $objectData['classification']; ?></p>
+                            </div>
+                            <?php
                         }
                     }
-                    // Préparez le bouton "Voir plus" si nécessaire
                     if ($data['total'] > $pagingrequest) {
                         $nextPage = $currentPage + 1;
                         $showMoreButton = "<a href='?page=$nextPage&general_search=" . $_GET['general_search'] . "' class='voir-plus'>Voir plus</a>";
@@ -79,10 +85,10 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
             } else {
                 echo "<p>Erreur lors de la récupération des données.</p>";
             }
-            // Préparez le bouton "Nouvelle recherche"
             $newSearchButton = "<a href='http://projet.test/PlatosDisciple/php/recherche_oeuvre.php' class='nouvelle-recherche'>Nouvelle recherche</a>";
         }
         ?>
+        </div>
         <!-- Affichez les boutons ici -->
         <?php echo $newSearchButton; ?>
         <?php echo $showMoreButton; ?>
