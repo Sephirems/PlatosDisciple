@@ -5,6 +5,7 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
+$showMoreButton = ''; // Initialisation de la variable $showMoreButton
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,31 +23,13 @@ session_start();
         <header>
             <h1>Bienvenue sur Platos Disciple</h1>
         </header>
-        <!-- Modifiez l'attribut "method" de "post" à "get" -->
         <form id="search-form" action="" method="get">
-            <input type="text" name="title_search" placeholder="Recherche par titre" value="<?php echo isset($_GET['title_search']) ? $_GET['title_search'] : ''; ?>">
-            <input type="text" name="artist_search" placeholder="Recherche par artiste" value="<?php echo isset($_GET['artist_search']) ? $_GET['artist_search'] : ''; ?>">
-            <input type="text" name="date_search" placeholder="Recherche par date" value="<?php echo isset($_GET['date_search']) ? $_GET['date_search'] : ''; ?>">
-            <input type="text" name="culture_search" placeholder="Recherche par culture" value="<?php echo isset($_GET['culture_search']) ? $_GET['culture_search'] : ''; ?>">
+            <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
             <input type="submit" value="Rechercher">
         </form>
         <?php
-        // Utilisez $_GET au lieu de $_POST pour récupérer les critères de recherche
-        $searchQuery = '';
-        if (!empty($_GET['title_search'])) {
-            $searchQuery .= urlencode($_GET['title_search']) . ' ';
-        }
-        if (!empty($_GET['artist_search'])) {
-            $searchQuery .= urlencode($_GET['artist_search']) . ' ';
-        }
-        if (!empty($_GET['date_search'])) {
-            $searchQuery .= urlencode($_GET['date_search']) . ' ';
-        }
-        if (!empty($_GET['culture_search'])) {
-            $searchQuery .= urlencode($_GET['culture_search']);
-        }
-        $searchQuery = trim($searchQuery);
-        if ($searchQuery) {
+        if (!empty($_GET['general_search'])) {
+            $searchQuery = urlencode($_GET['general_search']);
             echo "<script>hideSearchForm();</script>";
             $url = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=$searchQuery";
             $output = file_get_contents($url);
@@ -54,13 +37,9 @@ session_start();
                 $data = json_decode($output, true);
                 if ($data['total'] > 0) {
                     $paging = 8; // Nombre d'œuvres à afficher par page
-                    if (isset($_GET['page'])) {
-                        $currentPage = $_GET['page'];
-                    } else {
-                        $currentPage = 1;
-                    }
+                    $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                     $pagingrequest = $paging * $currentPage;
-                    $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $pagingrequest);
+                    $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $paging);
                     foreach ($objectIDs as $objectID) {
                         $url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/$objectID";
                         $output = @file_get_contents($url);
@@ -85,10 +64,10 @@ session_start();
                             }
                         }
                     }
-                    // Modifiez le lien du bouton "Voir plus" pour inclure les critères de recherche
+                    // Préparez le bouton "Voir plus" si nécessaire
                     if ($data['total'] > $pagingrequest) {
                         $nextPage = $currentPage + 1;
-                        echo "<a href='?page=$nextPage&title_search=" . $_GET['title_search'] . "&artist_search=" . $_GET['artist_search'] . "&date_search=" . $_GET['date_search'] . "&culture_search=" . $_GET['culture_search'] . "' class='voir-plus'>Voir plus</a>";
+                        $showMoreButton = "<a href='?page=$nextPage&general_search=" . $_GET['general_search'] . "' class='voir-plus'>Voir plus</a>";
                     }
                 } else {
                     echo "<p>Pas de résultat</p>";
@@ -98,5 +77,7 @@ session_start();
             }
         }
         ?>
+        <!-- Affichez le bouton "Voir plus" ici -->
+        <?php echo $showMoreButton; ?>
     </body>
 </html>
