@@ -73,14 +73,14 @@ p {
     color: black;
 }
 .voir-plus {
-    display: block; /* Rend le bouton en tant qu'élément de bloc */
-    margin: 0 auto; /* Centrage horizontal automatique */
-    padding: 10px 20px; /* Ajustez le remplissage selon vos préférences */
-    background-color: white; /* Couleur de fond du bouton */
-    color: black; /* Couleur du texte du bouton */
-    border: 2px solid white; /* Bordure blanche pour le bouton */
-    text-decoration: none; /* Supprime le soulignement des liens */
-    font-weight: bold; /* Rend le texte du bouton en gras */
-    text-align: center; /* Centre le texte à l'intérieur du bouton */
-    cursor: pointer; /* Change le curseur en main lors du survol */
+    display: block; 
+    margin: 0 auto; 
+    padding: 10px 20px; 
+    background-color: white; 
+    color: black; 
+    border: 2px solid white; 
+    text-decoration: none; 
+    font-weight: bold; 
+    text-align: center; 
+    cursor: pointer; 
 }
