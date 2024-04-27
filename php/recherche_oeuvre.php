@@ -7,6 +7,7 @@ ini_set('session.cookie_secure', 1);
 session_start();
 $showMoreButton = ''; 
 $newSearchButton = ''; 
+?>
 <!DOCTYPE html>
 <html>
     <head>
