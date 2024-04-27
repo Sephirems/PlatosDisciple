@@ -89,6 +89,7 @@ p {
     font-size: 16px;
     font-family: Arial, sans-serif;
 }
+
 .nouvelle-recherche {
     position: fixed;
     top: 20px;
@@ -124,5 +125,41 @@ p {
     height: 300px;
     width: auto;
     object-fit: cover;
+}
+.previous-page,
+.next-page {
+    background-color: white;
+    border: 1px solid white;
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.previous-page {
+    float: left;
+    margin-left: 20px;
+}
+
+.next-page {
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 25px;
+}
+
+
+.new-search {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid white;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
 }
 
