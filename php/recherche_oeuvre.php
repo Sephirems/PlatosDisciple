@@ -55,10 +55,10 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
                                 <h2><?php echo $objectData['title']; ?></h2>
                                 <?php
                                 if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
-                                    echo "<img class='image' src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
+                                    echo "<img class='search-result-image' src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
                                 } else {
                                     $restricted_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/restricted";
-                                    echo "<img src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
+                                    echo "<img class='search-result-image' src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
                                 }
                                 ?>
                                 <p>ObjectID: <?php echo $objectData['objectID']; ?></p>
@@ -90,7 +90,7 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
         ?>
         </div>
         <!-- Affichez les boutons ici -->
-        <?php echo $newSearchButton; ?>
         <?php echo $showMoreButton; ?>
+        <?php echo $newSearchButton; ?>
     </body>
 </html>
