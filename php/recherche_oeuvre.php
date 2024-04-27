@@ -40,7 +40,7 @@ $newSearchButton = ''; // Initialisation de la variable $newSearchButton
             if ($output !== FALSE) {
                 $data = json_decode($output, true);
                 if ($data['total'] > 0) {
-                    $paging = 8; // Nombre d'œuvres à afficher par page
+                    $paging = 6; // Nombre d'œuvres à afficher par page
                     $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                     $pagingrequest = $paging * $currentPage;
                     $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $paging);
