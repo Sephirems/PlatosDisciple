@@ -6,6 +6,7 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
 $showMoreButton = ''; // Initialisation de la variable $showMoreButton
+$newSearchButton = ''; // Initialisation de la variable $newSearchButton
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,9 @@ $showMoreButton = ''; // Initialisation de la variable $showMoreButton
         <script>
         function hideSearchForm() {
             document.getElementById('search-form').style.display = 'none';
+        }
+        function showSearchForm() {
+            document.getElementById('search-form').style.display = 'block';
         }
         </script>
     </head>
@@ -75,9 +79,12 @@ $showMoreButton = ''; // Initialisation de la variable $showMoreButton
             } else {
                 echo "<p>Erreur lors de la récupération des données.</p>";
             }
+            // Préparez le bouton "Nouvelle recherche"
+            $newSearchButton = "<a href='http://projet.test/PlatosDisciple/php/recherche_oeuvre.php' class='nouvelle-recherche'>Nouvelle recherche</a>";
         }
         ?>
-        <!-- Affichez le bouton "Voir plus" ici -->
+        <!-- Affichez les boutons ici -->
+        <?php echo $newSearchButton; ?>
         <?php echo $showMoreButton; ?>
     </body>
 </html>
