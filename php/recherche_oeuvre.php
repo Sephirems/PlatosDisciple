@@ -7,7 +7,6 @@ ini_set('session.cookie_secure', 1);
 session_start();
 $showNextButton = '';
 $showPrevButton = '';
-$newSearchButton = '';
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,14 +14,6 @@ $newSearchButton = '';
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
-    <script>
-    function hideSearchForm() {
-        document.getElementById('search-form').style.display = 'none';
-    }
-    function showSearchForm() {
-        document.getElementById('search-form').style.display = 'block';
-    }
-    </script>
 </head>
 <body>
     <header>
@@ -36,7 +27,6 @@ $newSearchButton = '';
     <?php
     if (!empty($_GET['general_search'])) {
         $searchQuery = urlencode($_GET['general_search']);
-        echo "<script>hideSearchForm();</script>";
         $url = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=$searchQuery";
         $output = file_get_contents($url);
         if ($output !== FALSE) {
@@ -84,7 +74,6 @@ $newSearchButton = '';
                     $nextPage = $currentPage + 1;
                     $showNextButton = "<a href='?page=$nextPage&general_search=" . $_GET['general_search'] . "' class='next-page'>Page suivante</a>";
                 }
-                $newSearchButton = "<a href='http://projet.test/PlatosDisciple/php/recherche_oeuvre.php' class='new-search'>Nouvelle recherche</a>";
             } else {
                 echo "<p>Pas de résultat</p>";
             }
@@ -97,7 +86,6 @@ $newSearchButton = '';
     <?php echo $showPrevButton; ?>
     <div class="next-button-container">
         <?php echo $showNextButton; ?>
-        <?php echo $newSearchButton; ?>
     </div>
 </body>
 </html>
