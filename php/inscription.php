@@ -1,7 +1,7 @@
 <?php
 
 if (!empty($_SERVER['HTTPS'])) {
-    header("Strict-Transport-Security: max-age=31536000");
+	header("Strict-Transport-Security: max-age=31536000");
 }
 
 ini_set('session.cookie_httponly', 1);
@@ -13,28 +13,34 @@ session_start();
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/style.css">
 <html>
-	<head>
-		<title>Inscription</title>
-	</head>
-	<body>
+
+<head>
+	<title>Inscription</title>
+</head>
+
+<body>
+	<header>
 		<h1>Inscription</h1>
-		<form action="" method="post">
-			<label for="un">Nom d'utilisateur</label>
-				<input type="text" id="un" name="nom_utilisateur" placeholder="Nom d'utilisateur" required><br>
-			<label for="pw">Mot de passe</label>
-				<input type="password" id="pw" name="mot_de_passe" placeholder="Mot de passe" required><br>
-			<label for="em">Adresse mail</label>
-				<input type="email" id="em" name="email_utilisateur" placeholder="nom@domaine.com" required><br>
-			<label for="pn">Numéro de téléphone</label>
-				<input type="tel" id="pn" name="numero_de_telephone" pattern="+32 4[0-9]{2}-[0-9]{3}-[0-9]{3}" placeholder="+32 4XX XXX XXX" required><br>
-			<label for="bd">Date de naissance</label>
-				<input type="date" id="bd" name="date_de_naissance" required><br>
-			<button type="submit">S'inscrire</button>
-			<div class="inscription">
-				<p>Déjà inscrit ? <a href="login.php">Connectez-vous ici.</a></p>
-			</div>
-		</form>
-	</body>
+		<a href="index.php">Accueil</a>
+	</header>
+	<form action="" method="post">
+		<label for="un">Nom d'utilisateur</label>
+		<input type="text" id="un" name="nom_utilisateur" placeholder="Nom d'utilisateur" required><br>
+		<label for="pw">Mot de passe</label>
+		<input type="password" id="pw" name="mot_de_passe" placeholder="Mot de passe" required><br>
+		<label for="em">Adresse mail</label>
+		<input type="email" id="em" name="email_utilisateur" placeholder="nom@domaine.com" required><br>
+		<label for="pn">Numéro de téléphone</label>
+		<input type="tel" id="pn" name="numero_de_telephone" pattern="+32 4[0-9]{2}-[0-9]{3}-[0-9]{3}" placeholder="+32 4XX XXX XXX" required><br>
+		<label for="bd">Date de naissance</label>
+		<input type="date" id="bd" name="date_de_naissance" required><br>
+		<button type="submit">S'inscrire</button>
+		<div class="inscription">
+			<p>Déjà inscrit ? <a href="login.php">Connectez-vous ici.</a></p>
+		</div>
+	</form>
+</body>
+
 </html>
 
 <?php
