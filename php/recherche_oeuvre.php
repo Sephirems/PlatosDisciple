@@ -1,75 +1,91 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<link rel="stylesheet" href="../css/style.css">
-<html>
-	<header>
-		<h1>Bienvenue sur Platos Disciple</h1>
-	</header>
-	<body>
-        <form action="" method="post">
-            <input type="text" name="search" placeholder="Recherche" required>
-            <input type="submit" value="Search">
-        </form>
-		
-
-
 <?php
-
-if (isset($_POST['search'])) {
-	$search = urlencode($_POST['search']);
-	$url = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=$search";
-	$output = file_get_contents($url);
-	$data = json_decode($output, true);
-
-		if($data['total'] > 0){
-			$objectIDs = array_slice($data['objectIDs'], 0, 20);
-
-			foreach ($objectIDs as $objectID) {
-
-				$url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/$objectID";
-				$output = @file_get_contents($url);
-				$objectData = json_decode($output, true);
-
-			if($output !== FALSE){
-				echo "<h2>" . $objectData['title'] . "</h2>";
-				echo "<p>ObjectID: " . $objectData['objectID'] . "</P>";
-				echo "<p>year: " . $objectData['objectDate'] . "</P>";
-				echo "<p>Culture: " . $objectData['culture'] . "</p>";
-				echo "<p>Artist: " . $objectData['artistDisplayName'] . "</p>";
-				echo "<p>ArtistBio: " . $objectData['artistDisplayBio'] . "</p>";
-				echo "<p>ArtistNationality: " . $objectData['artistNationality'] . "</p>";
-				echo "<p>EndYear: " . $objectData['objectEndDate'] . "</p>";
-				echo "<p>Dimensions: " . $objectData['dimensions'] . "</p>";
-				echo "<p>Country: " . $objectData['country'] . "</P>";
-				echo "<p>Classification: " . $objectData['classification'] . "</p>";
-				
-
-			
-			if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
-
-				echo"<img src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
-
-			} else {
-
-				$restricted_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/restricted";
-				$thumbnail_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/thumbnail";
-
-			if(!@getimagesize($restricted_url)) {
-
-				echo "<img src='" . $thumbnail_url . "' alt='" . $objectData['title'] . "' />";
-
-				} else {
-
-					echo "<img src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
-				}
-			}
-		}
-	}
-			}else{
-			
-			echo "<p>Pas de résultat</p>";
-			}
-		}
+if (!empty($_SERVER['HTTPS'])) {
+    header("Strict-Transport-Security: max-age=31536000");
+}
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1);
+session_start();
+$showNextButton = '';
+$showPrevButton = '';
 ?>
-	</body>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Bienvenue sur Platos Disciple</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur Platos Disciple</h1>
+    </header>
+    <form id="search-form" action="" method="get">
+        <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
+        <input type="submit" value="Rechercher">
+    </form>
+    <div class="results-container">
+    <?php
+    if (!empty($_GET['general_search'])) {
+        $searchQuery = urlencode($_GET['general_search']);
+        $url = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=$searchQuery";
+        $output = file_get_contents($url);
+        if ($output !== FALSE) {
+            $data = json_decode($output, true);
+            if ($data['total'] > 0) {
+                $paging = 6;
+                $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                $pagingrequest = $paging * $currentPage;
+                $objectIDs = array_slice($data['objectIDs'], $pagingrequest - $paging, $paging);
+                foreach ($objectIDs as $objectID) {
+                    $url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/$objectID";
+                    $output = @file_get_contents($url);
+                    if ($output !== FALSE) {
+                        $objectData = json_decode($output, true);
+                        ?>
+                        <div class="result-item">
+                            <h2><?php echo $objectData['title']; ?></h2>
+                            <?php
+                            if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
+                                echo "<img class='search-result-image' src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
+                            } else {
+                                $restricted_url = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/" . $objectData['objectID'] . "/restricted";
+                                echo "<img class='search-result-image' src='" . $restricted_url . "' alt='" . $objectData['title'] . "'/>";
+                            }
+                            ?>
+                            <p>ObjectID: <?php echo $objectData['objectID']; ?></p>
+                            <p>Year: <?php echo $objectData['objectDate']; ?></p>
+                            <p>Culture: <?php echo $objectData['culture']; ?></p>
+                            <p>Artist: <?php echo $objectData['artistDisplayName']; ?></p>
+                            <p>ArtistBio: <?php echo $objectData['artistDisplayBio']; ?></p>
+                            <p>ArtistNationality: <?php echo $objectData['artistNationality']; ?></p>
+                            <p>EndYear: <?php echo $objectData['objectEndDate']; ?></p>
+                            <p>Dimensions: <?php echo $objectData['dimensions']; ?></p>
+                            <p>Country: <?php echo $objectData['country']; ?></p>
+                            <p>Classification: <?php echo $objectData['classification']; ?></p>
+                        </div>
+                        <?php
+                    }
+                }
+                if ($currentPage > 1) {
+                    $prevPage = $currentPage - 1;
+                    $showPrevButton = "<a href='?page=$prevPage&general_search=" . $_GET['general_search'] . "' class='previous-page'>Page précédente</a>";
+                }
+                if ($data['total'] > $pagingrequest) {
+                    $nextPage = $currentPage + 1;
+                    $showNextButton = "<a href='?page=$nextPage&general_search=" . $_GET['general_search'] . "' class='next-page'>Page suivante</a>";
+                }
+            } else {
+                echo "<p>Pas de résultat</p>";
+            }
+        } else {
+            echo "<p>Erreur lors de la récupération des données.</p>";
+        }
+    }
+    ?>
+    </div>
+    <?php echo $showPrevButton; ?>
+    <div class="next-button-container">
+        <?php echo $showNextButton; ?>
+    </div>
+</body>
 </html>
