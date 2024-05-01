@@ -72,3 +72,45 @@ p {
 .inscription p, .connexion p {
     color: black;
 }
+
+.results-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.result-item {
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.search-result-image {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
+}
+.previous-page,
+.next-page {
+    background-color: white;
+    border: 1px solid white;
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.previous-page {
+    float: left;
+    margin-left: 20px;
+}
+
+.next-page {
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 25px;
+}
