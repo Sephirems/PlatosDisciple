@@ -81,29 +81,33 @@ $showPrevButton = '';
                                 <p>Classification: <?php echo $objectData['classification']; ?></p>
 
                                 <?php
-                                $idUtilisateur = $_SESSION['user_id'];
-                                $idOeuvre = $objectData['objectID'];
-                                $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
-                                if ($dejalike) {
-                                    echo '<form method="POST" action="src/unlike.php">
+                                if (isset($_SESSION['loggedUser'])) {
+                                    $idUtilisateur = $_SESSION['user_id'];
+                                    $idOeuvre = $objectData['objectID'];
+                                    $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
+                                    if ($dejalike) {
+                                        echo '<form method="POST" action="src/unlike.php">
+                                            <input type="hidden" name="objectID" value="' . $idOeuvre . '">
+                                            <input type="submit" name="unlike" value="UNLIKE">
+                                        </form>';
+                                    } else {
+                                        echo '<form method="POST" action="src/insertion_oeuvre.php">
                                         <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                        <input type="submit" name="unlike" value="UNLIKE">
+                                        <input type="hidden" name="image" value="' . $imageUrl . '">
+                                        <input type="hidden" name="title" value="' . $objectData['title'] . '">
+                                        <input type="hidden" name="culture" value="' . $objectData['culture'] . '">
+                                        <input type="hidden" name="artistDisplayName" value="' . $objectData['artistDisplayName'] . '">
+                                        <input type="hidden" name="artistDisplayBio" value="' . $objectData['artistDisplayBio'] . '">
+                                        <input type="hidden" name="artistNationality" value="' . $objectData['artistNationality'] . '">
+                                        <input type="hidden" name="objectEndDate" value="' . $objectData['objectEndDate'] . '">
+                                        <input type="hidden" name="dimensions" value="' . $objectData['dimensions'] . '">
+                                        <input type="hidden" name="country" value="' . $objectData['country'] . '">
+                                        <input type="hidden" name="classification" value="' . $objectData['classification'] . '">
+                                        <input type="submit" value="LIKE">
                                     </form>';
+                                    }
                                 } else {
-                                    echo '<form method="POST" action="src/insertion_oeuvre.php">
-                                    <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                    <input type="hidden" name="image" value="' . $imageUrl . '">
-                                    <input type="hidden" name="title" value="' . $objectData['title'] . '">
-                                    <input type="hidden" name="culture" value="' . $objectData['culture'] . '">
-                                    <input type="hidden" name="artistDisplayName" value="' . $objectData['artistDisplayName'] . '">
-                                    <input type="hidden" name="artistDisplayBio" value="' . $objectData['artistDisplayBio'] . '">
-                                    <input type="hidden" name="artistNationality" value="' . $objectData['artistNationality'] . '">
-                                    <input type="hidden" name="objectEndDate" value="' . $objectData['objectEndDate'] . '">
-                                    <input type="hidden" name="dimensions" value="' . $objectData['dimensions'] . '">
-                                    <input type="hidden" name="country" value="' . $objectData['country'] . '">
-                                    <input type="hidden" name="classification" value="' . $objectData['classification'] . '">
-                                    <input type="submit" value="LIKE">
-                                </form>';
+                                    echo "<p>Connectez-vous pour liker cette oeuvre.</p>";
                                 }
                                 ?>
                             </div>
