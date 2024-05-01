@@ -112,7 +112,7 @@ $showPrevButton = '';
                                     </form>';
                                     }
                                 } else {
-                                    echo "<p>Connectez-vous pour liker cette oeuvre.</p>";
+                                     echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
                                 }
                                 ?>
                             </div>
