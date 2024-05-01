@@ -35,10 +35,10 @@ $showPrevButton = '';
             </div>
         <?php endif; ?>
     </header>
-    <form id="search-form" action="" method="get">
-        <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
-        <input type="submit" value="Rechercher">
-    </form>
+    <form id="search-form" action="" method="get" class="<?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
+    <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
+    <input type="submit" value="Rechercher">
+</form>
     <?php
     // Placez le texte ici, juste après l'en-tête et avant le formulaire de recherche
     if (!empty($_GET['general_search'])) {
