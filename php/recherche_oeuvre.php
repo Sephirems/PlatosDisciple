@@ -5,10 +5,17 @@ if (!empty($_SERVER['HTTPS'])) {
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
+
 $_SESSION['search_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/config/databaseconnect.php');
 require_once('src/check_like_status.php');
+
+function afficherValeurOuDefaut($valeur, $nomDuChamp) {
+    echo $valeur ? $valeur : "L'information pour $nomDuChamp n'est pas renseignée.";
+}
+
 $showNextButton = '';
 $showPrevButton = '';
 ?>
@@ -64,7 +71,7 @@ $showPrevButton = '';
                             $objectData = json_decode($output, true);
         ?>
                             <div class="result-item">
-                                <h2><?php echo $objectData['title']; ?></h2>
+                                <h2><?php afficherValeurOuDefaut($objectData['title'], 'Titre'); ?></h2>
                                 <?php
                                 if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
                                     echo "<img class='search-result-image' src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
@@ -74,16 +81,13 @@ $showPrevButton = '';
                                     echo "<img class='search-result-image' src='" . $imageUrl . "' alt='" . $objectData['title'] . "'/>";
                                 }
                                 ?>
-                                <p>ObjectID: <?php echo $objectData['objectID']; ?></p>
-                                <p>Year: <?php echo $objectData['objectDate']; ?></p>
-                                <p>Culture: <?php echo $objectData['culture']; ?></p>
-                                <p>Artist: <?php echo $objectData['artistDisplayName']; ?></p>
-                                <p>ArtistBio: <?php echo $objectData['artistDisplayBio']; ?></p>
-                                <p>ArtistNationality: <?php echo $objectData['artistNationality']; ?></p>
-                                <p>EndYear: <?php echo $objectData['objectEndDate']; ?></p>
-                                <p>Dimensions: <?php echo $objectData['dimensions']; ?></p>
-                                <p>Country: <?php echo $objectData['country']; ?></p>
-                                <p>Classification: <?php echo $objectData['classification']; ?></p>
+                                <p>Culture: <?php afficherValeurOuDefaut($objectData['culture'], 'Culture'); ?></p>
+                                <p>Artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayName'], 'Artiste'); ?></p>
+                                <p>Bio de l'artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayBio'], 'Bio de l\'artiste'); ?></p>
+                                <p>Année de fin: <?php afficherValeurOuDefaut($objectData['objectEndDate'], 'Année de fin'); ?></p>
+                                <p>Dimensions: <?php afficherValeurOuDefaut($objectData['dimensions'], 'Dimensions'); ?></p>
+                                <p>Pays: <?php afficherValeurOuDefaut($objectData['country'], 'Pays'); ?></p>
+                                <p>Classification: <?php afficherValeurOuDefaut($objectData['classification'], 'Classification'); ?></p>
 
                                 <?php
                                 if (isset($_SESSION['loggedUser'])) {
