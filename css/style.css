@@ -17,7 +17,7 @@ h2 {
 
 h3 {
     text-align: center;
-    font-size: 34px;
+    font-size: 50px;
 }
 
 body {
@@ -98,6 +98,33 @@ p {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.result-item {
+    border: 3px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    padding: -100px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+.result-item h2 {
+    margin-bottom: auto; /* Le titre reste en haut de la boîte */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.result-item img {
+    margin-bottom: auto;
+    margin-bottom: auto;
+    margin-bottom: 20px; /* Centre l'image horizontalement */
+
+}
+
+.details-box {
+    border: 0px solid #ddd;
+    padding-top: 20px;
 }
 
 .search-result-image {
