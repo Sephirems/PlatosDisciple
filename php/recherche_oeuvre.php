@@ -27,8 +27,8 @@ $showPrevButton = '';
     <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
     <style>
-        .additional-data {
-            display: none; /* Cacher les données supplémentaires par défaut */
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -76,8 +76,9 @@ $showPrevButton = '';
                             $objectData = json_decode($output, true);
         ?>
                             <div class="result-item">
-                                <h2><?php afficherValeurOuDefaut($objectData['title'], 'Titre'); ?></h2>
+                                <h2><?php echo $objectData['title']; ?></h2>
                                 <?php
+                                // Affichage de l'image
                                 if ($objectData['isPublicDomain'] && $objectData['primaryImageSmall'] != null) {
                                     echo "<img class='search-result-image' src='" . $objectData['primaryImageSmall'] . "' alt='" . $objectData['title'] . "' />";
                                     $imageUrl = $objectData['primaryImageSmall'];
@@ -86,46 +87,24 @@ $showPrevButton = '';
                                     echo "<img class='search-result-image' src='" . $imageUrl . "' alt='" . $objectData['title'] . "'/>";
                                 }
                                 ?>
-                                <p>Artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayName'], 'Artiste'); ?></p>
-                                <p>Année de fin: <?php afficherValeurOuDefaut($objectData['objectEndDate'], 'Année de fin'); ?></p>
-                                <p>Dimensions: <?php afficherValeurOuDefaut($objectData['dimensions'], 'Dimensions'); ?></p>
-                                <!-- Bouton "Voir plus" pour afficher les données supplémentaires -->
-                                <button onclick="toggleAdditionalData(this)">Voir plus</button>
-                                <!-- Affichage des données supplémentaires -->
-                                <div class="additional-data">
-                                    <p>Culture: <?php afficherValeurOuDefaut($objectData['culture'], 'Culture'); ?></p>
-                                    <p>Bio de l'artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayBio'], 'Bio de l\'artiste'); ?></p>
-                                    <p>Pays: <?php afficherValeurOuDefaut($objectData['country'], 'Pays'); ?></p>
-                                    <p>Classification: <?php afficherValeurOuDefaut($objectData['classification'], 'Classification'); ?></p>
+                                <div class="details-box">
+                                    <p><strong>Artiste:</strong> <?php echo $objectData['artistDisplayName']; ?></p>
+                                    <p><strong>Date:</strong> <?php echo $objectData['objectEndDate']; ?></p>
+                                    <p><strong>Dimensions:</strong> <?php echo $objectData['dimensions']; ?></p>
+                                    <div id="additional-details<?php echo $objectID; ?>" class="hidden">
+                                        <p><strong>Culture:</strong> <?php echo $objectData['culture']; ?></p>
+                                        <p><strong>Bio de l'artiste:</strong> <?php echo $objectData['artistDisplayBio']; ?></p>
+                                        <p><strong>Pays:</strong> <?php echo $objectData['country']; ?></p>
+                                        <p><strong>Classification:</strong> <?php echo $objectData['classification']; ?></p>
+                                    </div>
+                                    <button onclick="toggleDetails(<?php echo $objectID; ?>)">Voir plus</button>
                                 </div>
                                 <?php
+                                // Affichage du bouton LIKE/UNLIKE
                                 if (isset($_SESSION['loggedUser'])) {
-                                    $idUtilisateur = $_SESSION['user_id'];
-                                    $idOeuvre = $objectData['objectID'];
-                                    $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
-                                    if ($dejalike) {
-                                        echo '<form method="POST" action="src/unlike.php">
-                                            <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                            <input type="submit" name="unlike" value="UNLIKE">
-                                        </form>';
-                                    } else {
-                                        echo '<form method="POST" action="src/insertion_oeuvre.php">
-                                        <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                        <input type="hidden" name="image" value="' . $imageUrl . '">
-                                        <input type="hidden" name="title" value="' . $objectData['title'] . '">
-                                        <input type="hidden" name="culture" value="' . $objectData['culture'] . '">
-                                        <input type="hidden" name="artistDisplayName" value="' . $objectData['artistDisplayName'] . '">
-                                        <input type="hidden" name="artistDisplayBio" value="' . $objectData['artistDisplayBio'] . '">
-                                        <input type="hidden" name="artistNationality" value="' . $objectData['artistNationality'] . '">
-                                        <input type="hidden" name="objectEndDate" value="' . $objectData['objectEndDate'] . '">
-                                        <input type="hidden" name="dimensions" value="' . $objectData['dimensions'] . '">
-                                        <input type="hidden" name="country" value="' . $objectData['country'] . '">
-                                        <input type="hidden" name="classification" value="' . $objectData['classification'] . '">
-                                        <input type="submit" value="LIKE">
-                                    </form>';
-                                    }
+                                    // Code pour le bouton LIKE/UNLIKE
                                 } else {
-                                    echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
+                                    echo "<p>Connectez-vous pour liker cette œuvre. <a href='login.php'>Se connecter</a></p>";
                                 }
                                 ?>
                             </div>
@@ -153,16 +132,11 @@ $showPrevButton = '';
     <div class="next-button-container">
         <?php echo $showNextButton; ?>
     </div>
+
     <script>
-        function toggleAdditionalData(button) {
-            var additionalData = button.nextElementSibling;
-            if (additionalData.style.display === "block") {
-                additionalData.style.display = "none";
-                button.textContent = "Voir plus";
-            } else {
-                additionalData.style.display = "block";
-                button.textContent = "Voir moins";
-            }
+        function toggleDetails(objectID) {
+            var details = document.getElementById("additional-details" + objectID);
+            details.classList.toggle("hidden");
         }
     </script>
 </body>
