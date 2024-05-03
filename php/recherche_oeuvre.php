@@ -26,6 +26,11 @@ $showPrevButton = '';
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
+    <style>
+        .additional-data {
+            display: none; /* Cacher les données supplémentaires par défaut */
+        }
+    </style>
 </head>
 
 <body>
@@ -43,9 +48,9 @@ $showPrevButton = '';
         <?php endif; ?>
     </header>
     <form id="search-form" action="" method="get" class="<?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
-    <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
-    <input type="submit" value="Rechercher">
-</form>
+        <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
+        <input type="submit" value="Rechercher">
+    </form>
     <?php
     if (!empty($_GET['general_search'])) {
         echo '<h3>Voici le résultat de vos recherches </h3>';
@@ -81,14 +86,18 @@ $showPrevButton = '';
                                     echo "<img class='search-result-image' src='" . $imageUrl . "' alt='" . $objectData['title'] . "'/>";
                                 }
                                 ?>
-                                <p>Culture: <?php afficherValeurOuDefaut($objectData['culture'], 'Culture'); ?></p>
                                 <p>Artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayName'], 'Artiste'); ?></p>
-                                <p>Bio de l'artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayBio'], 'Bio de l\'artiste'); ?></p>
                                 <p>Année de fin: <?php afficherValeurOuDefaut($objectData['objectEndDate'], 'Année de fin'); ?></p>
                                 <p>Dimensions: <?php afficherValeurOuDefaut($objectData['dimensions'], 'Dimensions'); ?></p>
-                                <p>Pays: <?php afficherValeurOuDefaut($objectData['country'], 'Pays'); ?></p>
-                                <p>Classification: <?php afficherValeurOuDefaut($objectData['classification'], 'Classification'); ?></p>
-
+                                <!-- Bouton "Voir plus" pour afficher les données supplémentaires -->
+                                <button onclick="toggleAdditionalData(this)">Voir plus</button>
+                                <!-- Affichage des données supplémentaires -->
+                                <div class="additional-data">
+                                    <p>Culture: <?php afficherValeurOuDefaut($objectData['culture'], 'Culture'); ?></p>
+                                    <p>Bio de l'artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayBio'], 'Bio de l\'artiste'); ?></p>
+                                    <p>Pays: <?php afficherValeurOuDefaut($objectData['country'], 'Pays'); ?></p>
+                                    <p>Classification: <?php afficherValeurOuDefaut($objectData['classification'], 'Classification'); ?></p>
+                                </div>
                                 <?php
                                 if (isset($_SESSION['loggedUser'])) {
                                     $idUtilisateur = $_SESSION['user_id'];
@@ -116,7 +125,7 @@ $showPrevButton = '';
                                     </form>';
                                     }
                                 } else {
-                                     echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
+                                    echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
                                 }
                                 ?>
                             </div>
@@ -144,6 +153,18 @@ $showPrevButton = '';
     <div class="next-button-container">
         <?php echo $showNextButton; ?>
     </div>
+    <script>
+        function toggleAdditionalData(button) {
+            var additionalData = button.nextElementSibling;
+            if (additionalData.style.display === "block") {
+                additionalData.style.display = "none";
+                button.textContent = "Voir plus";
+            } else {
+                additionalData.style.display = "block";
+                button.textContent = "Voir moins";
+            }
+        }
+    </script>
 </body>
 
 </html>
