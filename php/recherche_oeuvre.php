@@ -6,6 +6,7 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
 
+$_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 $_SESSION['search_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 require_once(__DIR__ . '/config/mysql.php');
