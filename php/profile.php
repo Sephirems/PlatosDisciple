@@ -38,7 +38,8 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     </header>
 
     <?php 
-    $results = show_user_likes($conn, $user_id);
+    $idUtilisateur = $_SESSION['user_id'];
+    $results = show_user_likes($conn, $idUtilisateur);
     foreach($results as $row) { ?>
     <div class="result-item">
                                 <h2><?php afficherValeurOuDefaut($row['titre'], 'Titre'); ?></h2>
@@ -53,7 +54,6 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
                                 <?php
                                 if (isset($_SESSION['loggedUser'])) {
-                                    $idUtilisateur = $_SESSION['user_id'];
                                     $idOeuvre = $row['id_oeuvre'];
                                     $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
                                     if ($dejalike) {
