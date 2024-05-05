@@ -14,11 +14,11 @@ $statement->execute([
     ':idu' => $_SESSION['user_id'],
     ':ido' => htmlspecialchars($_POST['objectID'])
 ]);
-if(isset($_SESSION['search_url'])) {
-    header('Location: ' . $_SESSION['search_url']);
-    unset($_SESSION['search_url']);
+if(isset($_SESSION['origine'])) {
+    header('Location: ' . $_SESSION['origine']);
+    unset($_SESSION['origine']);
 } else {
-    header('Location: recherche_oeuvre.php');
+    header('Location: index.php');
 }
 exit;
 } catch (PDOException $e){
