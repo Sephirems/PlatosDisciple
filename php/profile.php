@@ -83,7 +83,11 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
                             }
                                 ?>
                             </div>
-
+                            </div>
+                            </div>
 </body>
 
 </html>
+<footer>
+<?php include 'footer.php'; ?>
+</footer>

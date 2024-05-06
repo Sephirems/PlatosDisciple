@@ -47,7 +47,7 @@ $showPrevButton = '';
             </div>
         <?php endif; ?>
     </header>
-    <form id="search-form" action="" method="get" class="<?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
+    <form id="search-form" action="" method="get" class="search-form <?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
         <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
         <input type="submit" value="Rechercher">
     </form>
@@ -169,3 +169,5 @@ $showPrevButton = '';
 </body>
 
 </html>
+
+<?php include 'footer.php'; ?>

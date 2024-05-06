@@ -253,4 +253,45 @@ p {
     color: black;
 }
 
+.footer {
+  background-color: #333;
+  color: white;
+  font-family: Arial, sans-serif;
+  position: relative;
+  padding: 20px;
+  overflow: hidden;
+  margin-top: 100px;
+}
 
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.footer .menu {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.bottom {
+text-align: center;
+  width: 100%;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+
+.search-form {
+    margin-bottom: 297px;
+}

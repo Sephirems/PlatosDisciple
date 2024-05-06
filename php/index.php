@@ -11,6 +11,8 @@ require_once(__DIR__ . '/config/databaseconnect.php');
 require_once(__DIR__ . '/src/show_most_liked.php');
 require_once(__DIR__ . '/src/check_like_status.php');
 
+
+
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
 ?>
@@ -156,3 +158,6 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
 </html>
 
+<footer>
+<?php include 'footer.php'; ?>
+</footer>
