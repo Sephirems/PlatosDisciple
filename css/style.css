@@ -28,12 +28,38 @@ h4 {
     margin-right: 50px ;
     margin-left: 50px ;
     font-family: cursive;
+    margin-top: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.image1 img {
+    height: 500px;
+    margin-top: 0px;
+    margin-right: 30px;
+}
+.image2 img {
+    height: 550px;
+    margin-top: 0px;
+    margin-left: 30px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    flex: 3;
+    padding-right: 20px;
 }
 
 
 body {
-    background-color: #333;
-    color: white;
+    background-color: white;
+    color: black;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -83,11 +109,11 @@ label span {
 }
 
 p {
-  color: #fff;
+  color: black;
 }
 
 .lien a {
-    color: #fff;
+    color: black;
     font-size: 20px;
 }
 
@@ -109,6 +135,7 @@ p {
     justify-content: center;
     align-items: center;
     text-align: center;
+    color:black;
 }
 
 .result-item {
@@ -124,7 +151,9 @@ p {
     margin-bottom: auto; /* Le titre reste en haut de la boîte */
     margin-top: 10px;
     margin-bottom: 10px;
+    color:black;
 }
+
 
 .result-item img {
     margin-bottom: auto;
@@ -136,6 +165,7 @@ p {
 .details-box {
     border: 0px solid #ddd;
     padding-top: 20px;
+    color:black;
 }
 
 .search-result-image {
@@ -211,6 +241,7 @@ p {
     padding: 10px; /* Ajoutez un peu d'espacement intérieur */
     margin-bottom: 20px; /* Ajoutez un peu d'espacement entre les éléments */
     text-align: center;
+    color: black;
 }
 
 .artwork-container {
@@ -218,6 +249,7 @@ p {
     padding: 10px; /* Ajoutez un peu d'espacement entre les œuvres et la bordure */
     margin-left: 50px;
     margin-right: 50px;
+    color: black;
 }
 
 
