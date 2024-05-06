@@ -20,7 +20,6 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
-    
 </head>
 
 <body>
