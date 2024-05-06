@@ -57,7 +57,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 </body>
 
 </html>
-
+<br>
 <h3>Les oeuvres les plus tendances du moment </h3>
     <div class="row artwork-container">
         <?php 
