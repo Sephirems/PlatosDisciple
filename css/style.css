@@ -20,6 +20,7 @@ h3 {
     font-size: 50px;
     font-style: italic;
     font-weight: bold;
+    margin-top: 50px;
 }
 
 h4 {
@@ -28,7 +29,7 @@ h4 {
     margin-right: 50px ;
     margin-left: 50px ;
     font-family: cursive;
-    margin-top: 0px;
+    top: 0px;
 }
 
 a {
@@ -229,7 +230,8 @@ p {
 .button-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: -50px;
+    margin-bottom: -70px;
 }
 
 .hidden {
