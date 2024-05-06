@@ -20,6 +20,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
+    
 </head>
 
 <body>
@@ -40,54 +41,92 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     <?php 
     $idUtilisateur = $_SESSION['user_id'];
     $results = show_user_likes($conn, $idUtilisateur);
-    foreach($results as $row) { ?>
-    <div class="result-item">
-                                <h2><?php afficherValeurOuDefaut($row['titre'], 'Titre'); ?></h2>
-                                <?php echo "<img class='search-result-image' src='" . $row['image'] . "' alt='" . $row['titre'] . "' />"; ?>
-                                <p>Culture: <?php afficherValeurOuDefaut($row['culture'], 'Culture'); ?></p>
-                                <p>Artiste: <?php afficherValeurOuDefaut($row['nom_artiste'], 'Artiste'); ?></p>
-                                <p>Bio de l'artiste: <?php afficherValeurOuDefaut($row['bio_artiste'], 'Bio de l\'artiste'); ?></p>
-                                <p>Année de fin: <?php afficherValeurOuDefaut($row['date_fin'], 'Année de fin'); ?></p>
-                                <p>Dimensions: <?php afficherValeurOuDefaut($row['taille'], 'Dimensions'); ?></p>
-                                <p>Pays: <?php afficherValeurOuDefaut($row['pays'], 'Pays'); ?></p>
-                                <p>Classification: <?php afficherValeurOuDefaut($row['classification'], 'Classification'); ?></p>
+    ?>
+    <div class="artwork-container-profile">
+        <?php foreach($results as $row) { ?>
+            <div class="result-item-profile profile">
+                <h2><?php afficherValeurOuDefaut($row['titre'], 'Titre'); ?></h2>
+                <?php echo "<img class='search-result-image' src='" . $row['image'] . "' alt='" . $row['titre'] . "' />"; ?>
+                <p>Artiste: <?php afficherValeurOuDefaut($row['nom_artiste'], 'Artiste'); ?></p>
+                <p>Année de fin: <?php afficherValeurOuDefaut($row['date_fin'], 'Année de fin'); ?></p>
+                <p>Dimensions: <?php afficherValeurOuDefaut($row['taille'], 'Dimensions'); ?></p>
 
-                                <?php
-                                if (isset($_SESSION['loggedUser'])) {
-                                    $idOeuvre = $row['id_oeuvre'];
-                                    $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
-                                    if ($dejalike) {
-                                        echo '<form method="POST" action="src/unlike.php">
-                                            <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                            <input type="submit" name="unlike" value="UNLIKE">
-                                        </form>';
-                                    } else {
-                                        echo '<form method="POST" action="src/insertion_oeuvre.php">
-                                        <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                        <input type="hidden" name="image" value="' . $row['image'] . '">
-                                        <input type="hidden" name="title" value="' . $row['titre'] . '">
-                                        <input type="hidden" name="culture" value="' . $row['culture'] . '">
-                                        <input type="hidden" name="artistDisplayName" value="' . $row['nom_artiste'] . '">
-                                        <input type="hidden" name="artistDisplayBio" value="' . $row['bio_artiste'] . '">
-                                        <input type="hidden" name="artistNationality" value="' . $row['nationalite_artiste'] . '">
-                                        <input type="hidden" name="objectEndDate" value="' . $row['date_fin'] . '">
-                                        <input type="hidden" name="dimensions" value="' . $row['taille'] . '">
-                                        <input type="hidden" name="country" value="' . $row['pays'] . '">
-                                        <input type="hidden" name="classification" value="' . $row['classification'] . '">
-                                        <input type="submit" value="LIKE">
-                                    </form>';
-                                    }
-                                } else {
-                                     echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
-                                }
-                            }
-                                ?>
-                            </div>
-                            </div>
-                            </div>
+                <p class="culture hidden">Culture: <?php afficherValeurOuDefaut($row['culture'], 'Culture'); ?></p>
+                <p class="bio-artiste hidden">Bio de l'artiste: <?php afficherValeurOuDefaut($row['bio_artiste'], 'Bio de l\'artiste'); ?></p>
+                <p class="pays hidden">Pays: <?php afficherValeurOuDefaut($row['pays'], 'Pays'); ?></p>
+                <p class="classification hidden">Classification: <?php afficherValeurOuDefaut($row['classification'], 'Classification'); ?></p>
+
+                <button class="voir-plus">Voir plus</button>
+                <button class="voir-moins hidden">Voir moins</button>
+                <br>
+
+                <?php
+                if (isset($_SESSION['loggedUser'])) {
+                    $idOeuvre = $row['id_oeuvre'];
+                    $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
+                    if ($dejalike) {
+                        echo '<form class="like-form" method="POST" action="src/unlike.php">
+                            <input type="hidden" name="objectID" value="' . $idOeuvre . '">
+                            <input type="submit" name="unlike" value="UNLIKE">
+                        </form>';
+                    } else {
+                        echo '<form class="like-form" method="POST" action="src/insertion_oeuvre.php">
+                            <input type="hidden" name="objectID" value="' . $idOeuvre . '">
+                            <input type="hidden" name="image" value="' . $row['image'] . '">
+                            <input type="hidden" name="title" value="' . $row['titre'] . '">
+                            <input type="hidden" name="culture" value="' . $row['culture'] . '">
+                            <input type="hidden" name="artistDisplayName" value="' . $row['nom_artiste'] . '">
+                            <input type="hidden" name="artistDisplayBio" value="' . $row['bio_artiste'] . '">
+                            <input type="hidden" name="artistNationality" value="' . $row['nationalite_artiste'] . '">
+                            <input type="hidden" name="objectEndDate" value="' . $row['date_fin'] . '">
+                            <input type="hidden" name="dimensions" value="' . $row['taille'] . '">
+                            <input type="hidden" name="country" value="' . $row['pays'] . '">
+                            <input type="hidden" name="classification" value="' . $row['classification'] . '">
+                            <input type="submit" value="LIKE">
+                        </form>';
+                    }
+                } else {
+                     echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
+                }
+                ?>
+            </div>
+        <?php } ?>
+    </div>
+
+    <footer>
+        <?php include 'footer.php'; ?>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var voirPlusButtons = document.querySelectorAll('.voir-plus');
+            var voirMoinsButtons = document.querySelectorAll('.voir-moins');
+
+            voirPlusButtons.forEach(function(button, index) {
+                button.addEventListener('click', function() {
+                    var parent = this.parentNode;
+                    var hiddenElements = parent.querySelectorAll('.hidden');
+                    hiddenElements.forEach(function(element) {
+                        element.style.display = 'block';
+                    });
+                    button.style.display = 'none';
+                    voirMoinsButtons[index].style.display = 'inline-block';
+                });
+            });
+
+            voirMoinsButtons.forEach(function(button, index) {
+                button.addEventListener('click', function() {
+                    var parent = this.parentNode;
+                    var hiddenElements = parent.querySelectorAll('.hidden');
+                    hiddenElements.forEach(function(element) {
+                        element.style.display = 'none';
+                    });
+                    button.style.display = 'none';
+                    voirPlusButtons[index].style.display = 'inline-block';
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
-<footer>
-<?php include 'footer.php'; ?>
-</footer>
