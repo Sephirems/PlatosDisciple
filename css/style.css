@@ -45,6 +45,19 @@ a {
     height: 550px;
     margin-top: 0px;
     margin-left: 30px;
+    width: 400px;
+}
+.image3 img {
+    height: 500px;
+    margin-top: 0px;
+    margin-left: 30px;
+}
+
+.image4 img {
+    height: 550px;
+    margin-top: 0px;
+    margin-right: 30px;
+    width: 400px;
 }
 
 .container {
