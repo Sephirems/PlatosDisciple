@@ -149,7 +149,7 @@ p {
 }
 
 .result-item h2 {
-    margin-bottom: auto; /* Le titre reste en haut de la boîte */
+    margin-bottom: auto;
     margin-top: 10px;
     margin-bottom: 10px;
     color:black;
@@ -159,8 +159,7 @@ p {
 .result-item img {
     margin-bottom: auto;
     margin-bottom: auto;
-    margin-bottom: 20px; /* Centre l'image horizontalement */
-
+    margin-bottom: 20px;
 }
 
 .details-box {
@@ -239,16 +238,16 @@ p {
 }
 
 .result-item-a {
-    width: 30%; /* Ajustez la largeur des éléments d'œuvre selon votre mise en page */
-    padding: 10px; /* Ajoutez un peu d'espacement intérieur */
-    margin-bottom: 20px; /* Ajoutez un peu d'espacement entre les éléments */
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 20px;
     text-align: center;
     color: black;
 }
 
 .artwork-container {
-    border: 3px solid white; /* Changez cette valeur selon vos préférences */
-    padding: 10px; /* Ajoutez un peu d'espacement entre les œuvres et la bordure */
+    border: 3px solid black;
+    padding: 10px;
     margin-left: 50px;
     margin-right: 50px;
     color: black;
