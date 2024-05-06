@@ -305,6 +305,8 @@ margin-bottom: 20px;
     margin-top: 50px;
     margin-left: 50px;
     margin-right: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
         }
 
 .result-item-profile {
@@ -322,3 +324,4 @@ margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
         }
+
