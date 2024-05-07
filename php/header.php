@@ -9,86 +9,9 @@ ini_set('session.cookie_secure', 1);
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
-    <style>
-        .header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            margin-bottom: -10px;
-            position: relative;
-        }
-
-        .menu-header {
-            display: flex;
-            gap: 20px;
-            font-size: 30px;
-        }
-
-        .connexion {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .connexion p,
-        .connexion a,
-        .lien a {
-            color: #fff;
-            font-size: 25px;
-        }
-
-        .lien {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 25px;
-            top: 0px;
-        }
-
-        .menu-link {
-            color: white;
-            cursor: pointer;
-        }
-
-        .menu-button-container {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .menu-button {
-            background-color: white;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .menu-button:hover {
-            background-color: #f1f1f1;
-        }
-
-        .logo {
-            position: absolute;
-            left: 50px;
-            top: 40px;
-        }
-
-        .logo img {
-            height: 100px;
-            width: 100px;
-        }
-    </style>
 </head>
 <body class="body-header">
     <div class="logo">
