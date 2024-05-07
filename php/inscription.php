@@ -16,12 +16,18 @@ session_start();
 
 <head>
 	<title>Inscription</title>
+    <style>
+        a#accueil {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
 	<header>
 		<h1>Inscription</h1>
-		<a href="index.php">Accueil</a>
+		<a id="accueil" href="index.php">Accueil</a>
 	</header>
 	<form action="" method="post">
 		<label for="un">Nom d'utilisateur</label>

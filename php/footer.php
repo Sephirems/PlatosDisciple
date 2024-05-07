@@ -17,11 +17,15 @@
   <div class="menu">
     <a href="index.php">Accueil</a>
     <a href="recherche_oeuvre.php">Recherche</a>
-    <a href="profile.php">Utilisateur</a>
+    <?php
+    if (isset($_SESSION['loggedUser'])) {
+        echo "<a href='profile.php'>Utilisateur</a>";
+    }
+    ?>
   </div>
   <br>
   <div class="bottom">
- © Platos-Disciple
+    © Platos-Disciple
   </div>
 </footer>
 </body>

@@ -1,10 +1,4 @@
 <?php
-if (!empty($_SERVER['HTTPS'])) {
-    header("Strict-Transport-Security: max-age=31536000");
-}
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 1);
-session_start();
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
@@ -35,18 +29,9 @@ $showPrevButton = '';
 
 <body>
     <header>
-        <h1>Bienvenue sur Platos Disciple</h1>
-        <a href="index.php">Accueil</a>
-        <?php if (isset($_SESSION['loggedUser'])) : ?>
-            <p><?php echo $_SESSION['nom_utilisateur']; ?></p>
-            <a class="nav-link" href="src/logout.php">Déconnexion</a>
-        <?php else : ?>
-            <div class="lien">
-                <p><a href="inscription.php">Inscription</a></p>
-                <p><a href="login.php">Connexion</a></p>
-            </div>
-        <?php endif; ?>
+    <?php include 'header.php'; ?>
     </header>
+
     <form id="search-form" action="" method="get" class="search-form <?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
         <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
         <input type="submit" value="Rechercher">

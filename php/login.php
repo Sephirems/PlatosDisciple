@@ -41,7 +41,6 @@ try {
     $message = 'Une erreur est survenue : ' . $e->getMessage();
 }
 
-// HTML et sortie après la gestion des exceptions et la redirection
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,19 +49,26 @@ try {
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Connexion</title>
+    <style>
+        span#accueil {
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <h1>Connexion</h1>
-        <a href="index.php">Accueil</a>
+        <span id="accueil" onclick="redirectToIndex()">Accueil</span>
     </header>
     <?php if (isset($_SESSION['loggedUser'])) : ?>
-        <p>Vous êtes déjà connecter</p>
+        <p>Vous êtes déjà connecté</p>
     <?php else : ?>
         <form action="" method="post">
             <input type="email" id="un" name="email" placeholder="Adresse e-mail" required><br>
-            <input type="password" id="pw" name="password" placeholder="mot de passe" required><br>
+            <input type="password" id="pw" name="password" placeholder="Mot de passe" required><br>
             <label for="c1">
                 <span>Rester connecté</span>
                 <input type="checkbox" id="c1" name="c" value="OK">
@@ -74,6 +80,12 @@ try {
         </form>
     <?php endif; ?>
     <?php if (isset($message)) echo $message; ?>
+
+    <script>
+        function redirectToIndex() {
+            window.location.href = 'index.php';
+        }
+    </script>
 </body>
 
 </html>
