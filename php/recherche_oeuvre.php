@@ -4,11 +4,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/config/databaseconnect.php');
-require_once('src/check_like_status.php');
-
-function afficherValeurOuDefaut($valeur, $nomDuChamp) {
-    echo $valeur ? $valeur : "L'information pour $nomDuChamp n'est pas renseignée.";
-}
+require_once('src/functions.php');
 
 $showNextButton = '';
 $showPrevButton = '';

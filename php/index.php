@@ -1,8 +1,8 @@
 <?php
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/config/databaseconnect.php');
-require_once(__DIR__ . '/src/show_most_liked.php');
-require_once(__DIR__ . '/src/check_like_status.php');
+require_once(__DIR__ . '/src/functions.php');
+
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 

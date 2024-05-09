@@ -2,8 +2,8 @@
 
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/config/databaseconnect.php');
-require_once(__DIR__ . '/src/show_user_likes.php');
-require_once(__DIR__ . '/src/check_like_status.php');
+require_once(__DIR__ . '/src/functions.php');
+
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
 ?>
@@ -26,9 +26,21 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     if(isset($_SESSION['user_id'])) {
         // L'utilisateur est connecté, affichez le contenu de la page utilisateur normalement
         $idUtilisateur = $_SESSION['user_id'];
+        $userData = show_user_data($conn, $idUtilisateur);
         $results = show_user_likes($conn, $idUtilisateur);
         ?>
+
+        <div class="user-data">
+            <h2>Vos données</h2>
+            <?php foreach($userData as $data) ?>
+            <p>Nom d'utilisateur: <?php echo $data['nom_utilisateur']; ?></p>
+            <p>Adresse mail: <?php echo $data['email_utilisateur'] ?></p>
+            <p>Numéro de téléphone: <?php echo $data['numero_de_telephone'] ?></p>
+            <p>Date de naissance: <?php echo $data['date_de_naissance'] ?></p>
+        </div>
+
         <div class="artwork-container-profile">
+            <h2>Vos oeuvres favorites</h2>
             <?php foreach($results as $row) { ?>
                 <div class="result-item-profile profile">
                     <h2><?php afficherValeurOuDefaut($row['titre'], 'Titre'); ?></h2>
