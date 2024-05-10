@@ -1,10 +1,4 @@
-<?php
-if (!empty($_SERVER['HTTPS'])) {
-    header("Strict-Transport-Security: max-age=31536000");
-}
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 1);
-?>
+
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +18,6 @@ ini_set('session.cookie_secure', 1);
             <span class="menu-link" onclick="window.location.href='index.php'">Accueil</span>
             <span class="menu-link" onclick="window.location.href='recherche_oeuvre.php'">Recherche</span>
             <?php
-            session_start();
             if (isset($_SESSION['loggedUser'])) {
                 echo "<span class='menu-link' onclick=\"window.location.href='profile.php'\">Utilisateur</span>";
             }

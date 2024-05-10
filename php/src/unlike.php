@@ -18,7 +18,7 @@ if(isset($_SESSION['origine'])) {
     header('Location: ' . $_SESSION['origine']);
     unset($_SESSION['origine']);
 } else {
-    header('Location: /index.php');
+    header('Location: ../index.php');
 }
 exit;
 } catch (PDOException $e){

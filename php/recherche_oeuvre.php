@@ -1,5 +1,12 @@
 <?php
 
+if (!empty($_SERVER['HTTPS'])) {
+    header("Strict-Transport-Security: max-age=31536000");
+}
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1);
+session_start();
+
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
 require_once(__DIR__ . '/config/mysql.php');
