@@ -27,18 +27,18 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
         <?php include 'header.php'; ?>
     </header>
 
-    <?php 
+    <?php
     // Vérifie si l'utilisateur est connecté
-    if(isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['user_id'])) {
         // L'utilisateur est connecté, affichez le contenu de la page utilisateur normalement
         $idUtilisateur = $_SESSION['user_id'];
         $userData = show_user_data($conn, $idUtilisateur);
         $results = show_user_likes($conn, $idUtilisateur);
-        ?>
+    ?>
 
         <div class="user-data">
             <h2>Vos données</h2>
-            <?php foreach($userData as $data) ?>
+            <?php foreach ($userData as $data) ?>
             <p>Nom d'utilisateur: <?php echo $data['nom_utilisateur']; ?></p>
             <p>Adresse mail: <?php echo $data['email_utilisateur'] ?></p>
             <p>Numéro de téléphone: <?php echo $data['numero_de_telephone'] ?></p>
@@ -47,7 +47,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
         <div class="artwork-container-profile">
             <h2>Vos oeuvres favorites</h2>
-            <?php foreach($results as $row) { ?>
+            <?php foreach ($results as $row) { ?>
                 <div class="result-item-profile profile">
                     <h2><?php afficherValeurOuDefaut($row['titre'], 'Titre'); ?></h2>
                     <?php echo "<img class='search-result-image' src='" . $row['image'] . "' alt='" . $row['titre'] . "' />"; ?>

@@ -8,20 +8,17 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 
 session_start();
+require_once(__DIR__ . '/config/mysql.php');
+require_once(__DIR__ . '/config/databaseconnect.php');
 try {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $db = new PDO(
-            'mysql:host=localhost;dbname=eiipopolcl55',
-            'is21di91plls',
-            'd6ta5i:7le'
-        );
-
-        $query = $db->prepare('SELECT * FROM Utilisateur where email_utilisateur = :email');
-        $query->execute(['email' => $email]);
-        $user = $query->fetch(PDO::FETCH_ASSOC);
+        $sql = 'SELECT * FROM Utilisateur where email_utilisateur = :email';
+        $statement = $conn->prepare($sql);
+        $statement->execute(['email' => $email]);
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['mot_de_passe'])) {
             // Utilisation d'un chemin absolu pour la redirection

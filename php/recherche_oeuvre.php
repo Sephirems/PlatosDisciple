@@ -25,14 +25,15 @@ $showPrevButton = '';
     <title>Bienvenue sur Platos Disciple</title>
     <style>
         .additional-data {
-            display: none; /* Cacher les données supplémentaires par défaut */
+            display: none;
+            /* Cacher les données supplémentaires par défaut */
         }
     </style>
 </head>
 
 <body>
     <header>
-    <?php include 'header.php'; ?>
+        <?php include 'header.php'; ?>
     </header>
 
     <form id="search-form" action="" method="get" class="search-form <?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">

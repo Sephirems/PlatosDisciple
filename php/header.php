@@ -1,12 +1,12 @@
-
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Bienvenue sur Platos Disciple</title>
 </head>
+
 <body class="body-header">
     <div class="logo">
         <img src="https://www.arthistoryproject.com/site/assets/files/17974/ancient-greece-head-of-plato-370-obelisk-art-history.png" alt="Logo Platos Disciple">
@@ -46,4 +46,5 @@
     </div>
 
 </body>
+
 </html>
