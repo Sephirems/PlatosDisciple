@@ -1,7 +1,7 @@
 <?php
 
 if (!empty($_SERVER['HTTPS'])) {
-	header("Strict-Transport-Security: max-age=31536000");
+    header("Strict-Transport-Security: max-age=31536000");
 }
 
 ini_set('session.cookie_httponly', 1);
@@ -83,18 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
 	<title>Inscription</title>
-    <style>
-        a#accueil {
-            color: white;
-            text-decoration: none
-        }
-    </style>
 </head>
 
 <body>
 	<header>
 		<h1>Inscription</h1>
 		<a id="accueil" href="index.php">Accueil</a>
+        <button class="bouton-connexion" onclick="window.location.href='login.php'">Se connecter</button>
 	</header>
 	<form action="" method="post">
 		<label for="un">Nom d'utilisateur</label>

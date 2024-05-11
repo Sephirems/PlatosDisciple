@@ -12,6 +12,33 @@ require_once(__DIR__ . '/src/functions.php');
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $oldPassword = $_POST['ancien_mot_de_passe'];
+    $newPassword = $_POST['nouveau_mot_de_passe'];
+    $confirmPassword = $_POST['confirmation_mot_de_passe'];
+
+    $query = $conn->prepare("SELECT mot_de_passe FROM Utilisateur WHERE id_utilisateur = :id");
+    $query->bindParam(':id', $_SESSION['user_id']);
+    $query->execute();
+    $user = $query->fetch();
+
+    if (password_verify($oldPassword, $user['mot_de_passe'])) {
+        if ($newPassword === $confirmPassword) {
+            $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+            $updateQuery = $conn->prepare("UPDATE Utilisateur SET mot_de_passe = :password WHERE id_utilisateur = :id");
+            $updateQuery->bindParam(':password', $newPasswordHash);
+            $updateQuery->bindParam(':id', $_SESSION['user_id']);
+            $updateQuery->execute();
+            $updateMessage = 'Le mot de passe a été mis à jour avec succès.';
+        } else {
+            $errorMessage = 'Le nouveau mot de passe et la confirmation ne correspondent pas.';
+        }
+    } else {
+        $errorMessage = 'Le mot de passe est incorrect.';
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,9 +55,9 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     </header>
 
     <?php
-    // Vérifie si l'utilisateur est connecté
+
     if (isset($_SESSION['user_id'])) {
-        // L'utilisateur est connecté, affichez le contenu de la page utilisateur normalement
+
         $idUtilisateur = $_SESSION['user_id'];
         $userData = show_user_data($conn, $idUtilisateur);
         $results = show_user_likes($conn, $idUtilisateur);
@@ -39,30 +66,43 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
         <div class="user-data">
             <h2>Vos données</h2>
             <?php foreach ($userData as $data) ?>
-            <p>Nom d'utilisateur: <?php echo $data['nom_utilisateur']; ?></p>
-            <p>Adresse mail: <?php echo $data['email_utilisateur'] ?></p>
-            <p>Numéro de téléphone: <?php echo $data['numero_de_telephone'] ?></p>
-            <p>Date de naissance: <?php echo $data['date_de_naissance'] ?></p>
+            <p><strong>Nom d'utilisateur:</strong> <?php echo $data['nom_utilisateur']; ?></p>
+            <p><strong>Adresse mail:</strong> <?php echo $data['email_utilisateur'] ?></p>
+            <p><strong>Numéro de téléphone:</strong> <?php echo $data['numero_de_telephone'] ?></p>
+            <p><strong>Date de naissance:</strong> <?php echo $data['date_de_naissance'] ?></p>
         </div>
 
         <div class="change-password">
             <h2>Modifier votre mot de passe</h2>
-            <form action="src/change_password.php" method="post">
+            <?php
+            if (isset($updateMessage)) {
+                echo '<p style="color: green; text-align: center;">' . $updateMessage . '</p>';
+            }
+            ?>
+            <form action="" method="post">
                 <label for="ancien_mot_de_passe">Ancien mot de passe :</label>
                 <input type="password" id="old_pw" name="ancien_mot_de_passe"  required><br>
-
+                <?php
+                if (isset($errorMessage) && $errorMessage === 'Le mot de passe est incorrect.') {
+                    echo '<p style="color: red;">' . $errorMessage . '</p>';
+                }
+                ?>
                 <label for="nouveau_mot_de_passe">Nouveau mot de passe :</label>
                 <input type="password" id="new_pw" name="nouveau_mot_de_passe" required><br>
 
                 <label for="confirmation_mot_de_passe">Confirmez le nouveau mot de passe :</label>
                 <input type="password" id="conf_new_pw" name="confirmation_mot_de_passe" required><br>
+                <?php
+                if (isset($errorMessage) && $errorMessage === 'Le nouveau mot de passe et la confirmation ne correspondent pas.') {
+                    echo '<p style="color: red;">' . $errorMessage . '</p>';
+                }
+                ?>
 
                 <input type="submit" value="Modifier le mot de passe">
             </form>
         </div>
-
-        <div class="artwork-container-profile">
-            <h2>Vos oeuvres favorites</h2>
+        <h2>Vos oeuvres favorites</h2>
+        <div class="artwork-container-profile"> 
             <?php foreach ($results as $row) { ?>
                 <div class="result-item-profile profile">
                     <h2><?php afficherValeurOuDefaut($row['titre'], 'Titre'); ?></h2>
@@ -113,7 +153,6 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
             <?php } ?>
         </div>
     <?php } else {
-        // L'utilisateur n'est pas connecté, affichez le message et les liens de connexion et d'inscription
         echo "Veuillez vous connecter pour voir vos œuvres. <br>";
         echo '<a href="login.php">Se connecter</a> | <a href="inscription.php">Créer un compte</a>';
     }
@@ -150,6 +189,18 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
                     button.style.display = 'none';
                     voirPlusButtons[index].style.display = 'inline-block';
                 });
+            });
+
+
+            document.getElementById('passwordForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var oldPassword = document.getElementById('old_pw').value;
+
+                if (oldPassword !== 'votreAncienMotDePasse') {
+                    document.getElementById('errorMessage').textContent = 'Le mot de passe est incorrect.';
+                } else {
+                    document.getElementById('errorMessage').textContent = '';
+                }
             });
         });
     </script>

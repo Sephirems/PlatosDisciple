@@ -10,34 +10,36 @@ ini_set('session.cookie_secure', 1);
 session_start();
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/config/databaseconnect.php');
-try {
-    if (isset($_POST['email']) && isset($_POST['password'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+$error_message = ['email' => '', 'password' => ''];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$email = $_POST['email'] ?? null;
+	$password = $_POST['password'] ?? null;
 
-        $sql = 'SELECT * FROM Utilisateur where email_utilisateur = :email';
-        $statement = $conn->prepare($sql);
-        $statement->execute(['email' => $email]);
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+	if (!$email || !$password) {
+		$error_message['email'] = 'Tous les champs sont requis.';
+		$error_message['password'] = 'Tous les champs sont requis.';
+	} else {
+		$sql = 'SELECT * FROM Utilisateur WHERE email_utilisateur = :email';
+		$statement = $conn->prepare($sql);
+		$statement->execute([':email' => $email]);
+		$user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['mot_de_passe'])) {
-            // Utilisation d'un chemin absolu pour la redirection
-            $_SESSION['loggedUser'] = true;
-            $_SESSION['email'] = $user['email_utilisateur'];
-            $_SESSION['nom_utilisateur'] = $user['nom_utilisateur'];
-            $_SESSION['user_id'] = $user['id_utilisateur'];
-            header('Location:index.php');
-            exit;
-        } else {
-            $message = 'Identifiants incorrects. Veuillez réessayer.';
-        }
-    }
-} catch (PDOException $e) {
-    $message = 'Erreur de base de données : ' . $e->getMessage();
-} catch (Exception $e) {
-    $message = 'Une erreur est survenue : ' . $e->getMessage();
+		if ($user) {
+			if (password_verify($password, $user['mot_de_passe'])) {
+				$_SESSION['loggedUser'] = true;
+				$_SESSION['email'] = $user['email_utilisateur'];
+				$_SESSION['nom_utilisateur'] = $user['nom_utilisateur'];
+				$_SESSION['user_id'] = $user['id_utilisateur'];
+				header('Location:index.php');
+				exit;
+			} else {
+				$error_message['password'] = 'Mot de passe incorrect.';
+			}
+		} else {
+			$error_message['email'] = 'Email non trouvé.';
+		}
+	}
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,13 +48,6 @@ try {
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
     <title>Connexion</title>
-    <style>
-        span#accueil {
-            cursor: pointer;
-            color: white;
-            text-decoration: none;
-        }
-    </style>
 </head>
 
 <body>
@@ -65,18 +60,20 @@ try {
     <?php else : ?>
         <form action="" method="post">
             <input type="email" id="un" name="email" placeholder="Adresse e-mail" required><br>
+            <span style="color: red;"><?php echo $error_message['email']; ?></span><br>
             <input type="password" id="pw" name="password" placeholder="Mot de passe" required><br>
+            <span style="color: red;"><?php echo $error_message['password']; ?></span><br>
             <label for="c1">
                 <span>Rester connecté</span>
                 <input type="checkbox" id="c1" name="c" value="OK">
+                <p>Pas encore inscrit ? <a href="inscription.php">Inscrivez-vous</a></p>
             </label>
             <button type="submit">Connexion</button>
             <div class="connexion">
-                <p>Pas encore inscrit ? <a href="inscription.php">Inscrivez-vous ici.</a></p>
+                <button type="button" class="bouton-inscription" onclick="window.location.href='inscription.php'">S'inscrire</button>
             </div>
         </form>
     <?php endif; ?>
-    <?php if (isset($message)) echo $message; ?>
 
     <script>
         function redirectToIndex() {
@@ -86,3 +83,4 @@ try {
 </body>
 
 </html>
+

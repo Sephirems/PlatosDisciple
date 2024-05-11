@@ -425,3 +425,65 @@ margin-bottom: 20px;
             height: 100px;
             width: 100px;
         }
+
+.user-data {
+        text-align: center;
+}
+
+.bouton-inscription {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.bouton-inscription:hover {
+    background-color: #45a049;
+}
+
+.bouton-connexion {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.bouton-connexion:hover {
+    background-color: #45a049;
+}
+
+span#accueil {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+a#accueil {
+    color: white;
+    text-decoration: none;
+}
+
+.bouton-connexion {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.change-password form {
+    /* Ajoutez une marge autour du formulaire */
+    margin-top: 50px;
+}
