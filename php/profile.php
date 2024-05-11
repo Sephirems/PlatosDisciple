@@ -45,6 +45,22 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
             <p>Date de naissance: <?php echo $data['date_de_naissance'] ?></p>
         </div>
 
+        <div class="change-password">
+            <h2>Modifier votre mot de passe</h2>
+            <form action="src/change_password.php" method="post">
+                <label for="ancien_mot_de_passe">Ancien mot de passe :</label>
+                <input type="password" id="old_pw" name="ancien_mot_de_passe"  required><br>
+
+                <label for="nouveau_mot_de_passe">Nouveau mot de passe :</label>
+                <input type="password" id="new_pw" name="nouveau_mot_de_passe" required><br>
+
+                <label for="confirmation_mot_de_passe">Confirmez le nouveau mot de passe :</label>
+                <input type="password" id="conf_new_pw" name="confirmation_mot_de_passe" required><br>
+
+                <input type="submit" value="Modifier le mot de passe">
+            </form>
+        </div>
+
         <div class="artwork-container-profile">
             <h2>Vos oeuvres favorites</h2>
             <?php foreach ($results as $row) { ?>
