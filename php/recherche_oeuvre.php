@@ -26,7 +26,6 @@ $showPrevButton = '';
     <style>
         .additional-data {
             display: none;
-            /* Cacher les données supplémentaires par défaut */
         }
     </style>
 </head>
@@ -78,14 +77,12 @@ $showPrevButton = '';
                                 <p>Artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayName'], 'Artiste'); ?></p>
                                 <p>Année de fin: <?php afficherValeurOuDefaut($objectData['objectEndDate'], 'Année de fin'); ?></p>
                                 <p>Dimensions: <?php afficherValeurOuDefaut($objectData['dimensions'], 'Dimensions'); ?></p>
-                                <!-- Affichage des données supplémentaires -->
                                 <div class="additional-data">
                                     <p>Culture: <?php afficherValeurOuDefaut($objectData['culture'], 'Culture'); ?></p>
                                     <p>Bio de l'artiste: <?php afficherValeurOuDefaut($objectData['artistDisplayBio'], 'Bio de l\'artiste'); ?></p>
                                     <p>Pays: <?php afficherValeurOuDefaut($objectData['country'], 'Pays'); ?></p>
                                     <p>Classification: <?php afficherValeurOuDefaut($objectData['classification'], 'Classification'); ?></p>
                                 </div>
-                                <!-- Bouton "Voir plus" pour afficher les données supplémentaires -->
                                 <button onclick="toggleAdditionalData(this)">Voir plus</button>
                                 <?php
                                 if (isset($_SESSION['loggedUser'])) {
@@ -144,8 +141,8 @@ $showPrevButton = '';
     </div>
     <script>
         function toggleAdditionalData(button) {
-            var resultItem = button.closest('.result-item'); // Sélectionne le conteneur parent du bouton
-            var additionalData = resultItem.querySelector('.additional-data'); // Sélectionne les données supplémentaires à l'intérieur du conteneur
+            var resultItem = button.closest('.result-item');
+            var additionalData = resultItem.querySelector('.additional-data');
             if (additionalData.style.display === "block") {
                 additionalData.style.display = "none";
                 button.textContent = "Voir plus";

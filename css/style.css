@@ -431,7 +431,7 @@ margin-bottom: 20px;
 }
 
 .bouton-inscription {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 15px 15px;
@@ -449,7 +449,7 @@ margin-bottom: 20px;
 }
 
 .bouton-connexion {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 15px 15px;
@@ -484,6 +484,5 @@ a#accueil {
 }
 
 .change-password form {
-    /* Ajoutez une marge autour du formulaire */
     margin-top: 50px;
 }

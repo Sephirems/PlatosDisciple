@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$error_message['email'] = 'Tous les champs sont requis.';
 		$error_message['phone'] = 'Tous les champs sont requis.';
 	} else {
-		// Check for duplicate username
 		$sql = 'SELECT * FROM Utilisateur WHERE nom_utilisateur = :un';
 		$statement = $conn->prepare($sql);
 		$statement->execute([':un' => $n]);
@@ -34,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$error_message['username'] = 'Le nom d\'utilisateur que vous avez entré existe déjà.';
 		}
 
-		// Check for duplicate email
 		$sql = 'SELECT * FROM Utilisateur WHERE email_utilisateur = :ue';
 		$statement = $conn->prepare($sql);
 		$statement->execute([':ue' => $e]);
@@ -43,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$error_message['email'] = 'L\'email que vous avez entré existe déjà.';
 		}
 
-		// Check for duplicate phone number
 		$sql = 'SELECT * FROM Utilisateur WHERE numero_de_telephone = :uf';
 		$statement = $conn->prepare($sql);
 		$statement->execute([':uf' => $f]);
@@ -52,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$error_message['phone'] = 'Le numéro de téléphone que vous avez entré existe déjà.';
 		}
 
-		// If no errors, insert the new user
 		if ($error_message['username'] === '' && $error_message['email'] === '' && $error_message['phone'] === '') {
 			$sql = 'INSERT INTO Utilisateur (nom_utilisateur, mot_de_passe, email_utilisateur, numero_de_telephone, date_de_naissance, date_inscription) VALUES (:un, :up, :ue, :uf, :ub, :ui)';
 			$statement = $conn->prepare($sql);
