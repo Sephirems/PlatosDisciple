@@ -418,12 +418,12 @@ margin-bottom: 20px;
         .logo {
             position: absolute;
             left: 50px;
-            top: 40px;
+            top: -10px;
         }
 
         .logo img {
-            height: 100px;
-            width: 100px;
+            height: 200px;
+            width: 300px;
         }
 
 .user-data {

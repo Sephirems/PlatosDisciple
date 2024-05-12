@@ -9,7 +9,9 @@
 
 <body class="body-header">
     <div class="logo">
-        <img src="https://www.arthistoryproject.com/site/assets/files/17974/ancient-greece-head-of-plato-370-obelisk-art-history.png" alt="Logo Platos Disciple">
+        <a href="index.php">
+            <img src="https://media.discordapp.net/attachments/876511185464328314/1239186975571836998/3429208b-f579-4e2c-94b8-a8ac08d523f7-removebg.png?ex=6642024d&is=6640b0cd&hm=60f2be3fe9ce91b9192fb10a3ac195760231830e0294c2532c0089e9e00d5232&=&format=webp&quality=lossless" alt="Logo Platos Disciple">
+        </a>
     </div>
 
     <h5 style="text-align: center;">Bienvenue sur Platos Disciple</h5>
