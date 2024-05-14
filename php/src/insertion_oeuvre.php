@@ -2,16 +2,16 @@
 
 session_start();
 
-require_once(__DIR__ . '/../config/mysql.php');
-require_once(__DIR__ . '/../config/databaseconnect.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
 
-$sql = 'SELECT COUNT(*) FROM oeuvre WHERE id_oeuvre = :id';
+$sql = 'SELECT COUNT(*) FROM Oeuvre WHERE id_oeuvre = :id';
 $statement = $conn->prepare($sql);
 $statement->execute([':id' => htmlspecialchars($_POST['objectID'])]);
 $exists = $statement->fetchColumn() > 0;
 
 if (!$exists) {
-    $sql = 'INSERT INTO oeuvre(id_oeuvre, image, titre, culture, nom_artiste, bio_artiste, nationalite_artiste, date_fin, taille, pays, classification) VALUES (:id, :im, :ti, :cu, :adn, :adb, :an, :oed, :di, :co, :cl)';
+    $sql = 'INSERT INTO Oeuvre(id_oeuvre, image, titre, culture, nom_artiste, bio_artiste, nationalite_artiste, date_fin, taille, pays, classification) VALUES (:id, :im, :ti, :cu, :adn, :adb, :an, :oed, :di, :co, :cl)';
     $statement = $conn->prepare($sql);
 
     try {
@@ -33,7 +33,7 @@ if (!$exists) {
     }
 }
 
-$sql = 'INSERT INTO favoris(id_utilisateur, id_oeuvre) VALUES (:idu, :ido)';
+$sql = 'INSERT INTO Favoris(id_utilisateur, id_oeuvre) VALUES (:idu, :ido)';
 $statement = $conn->prepare($sql);
 
 try {
@@ -45,7 +45,7 @@ try {
         header('Location: ' . $_SESSION['origine']);
         unset($_SESSION['origine']);
     } else {
-        header('Location: ../index.php');
+        header('Location:index.php');
     }
     exit;
 } catch (PDOException $e) {

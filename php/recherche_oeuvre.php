@@ -9,9 +9,9 @@ session_start();
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
-require_once(__DIR__ . '/config/mysql.php');
-require_once(__DIR__ . '/config/databaseconnect.php');
-require_once('src/functions.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
+require_once 'functions.php';
 
 $showNextButton = '';
 $showPrevButton = '';
@@ -21,7 +21,7 @@ $showPrevButton = '';
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Bienvenue sur Platos Disciple</title>
     <style>
         .additional-data {
@@ -36,7 +36,7 @@ $showPrevButton = '';
     </header>
 
     <form id="search-form" action="" method="get" class="search-form <?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
-        <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
+    <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? htmlspecialchars($_GET['general_search'], ENT_QUOTES, 'UTF-8') : ''; ?>">
         <input type="submit" value="Rechercher">
     </form>
     <?php
@@ -47,7 +47,7 @@ $showPrevButton = '';
     <div class="results-container">
         <?php
         if (!empty($_GET['general_search'])) {
-            $searchQuery = urlencode($_GET['general_search']);
+            $searchQuery = urlencode(htmlspecialchars($_GET['general_search'], ENT_QUOTES, 'UTF-8'));
             $url = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=$searchQuery";
             $output = file_get_contents($url);
             if ($output !== FALSE) {
@@ -90,12 +90,12 @@ $showPrevButton = '';
                                     $idOeuvre = $objectData['objectID'];
                                     $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
                                     if ($dejalike) {
-                                        echo '<form method="POST" action="src/unlike.php">
+                                        echo '<form method="POST" action="unlike.php">
                                             <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                             <input type="submit" name="unlike" value="UNLIKE">
                                         </form>';
                                     } else {
-                                        echo '<form method="POST" action="src/insertion_oeuvre.php">
+                                        echo '<form method="POST" action="insertion_oeuvre.php">
                                         <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                         <input type="hidden" name="image" value="' . $imageUrl . '">
                                         <input type="hidden" name="title" value="' . $objectData['title'] . '">
@@ -130,7 +130,7 @@ $showPrevButton = '';
                     echo "<p>Pas de résultat</p>";
                 }
             } else {
-                echo "<p>Erreur lors de la récupération des données.</p>";
+                echo "<h6>Erreur lors de la récupération des données ou critères de recherche pas valide.</h6></center>";
             }
         }
         ?>
@@ -154,6 +154,10 @@ $showPrevButton = '';
     </script>
 </body>
 
+<footer>
+        <?php include 'footer.php'; ?>
+    </footer>
+    
 </html>
 
-<?php include 'footer.php'; ?>
+

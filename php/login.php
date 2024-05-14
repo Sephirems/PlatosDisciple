@@ -8,8 +8,8 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 
 session_start();
-require_once(__DIR__ . '/config/mysql.php');
-require_once(__DIR__ . '/config/databaseconnect.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
 $error_message = ['email' => '', 'password' => ''];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$email = $_POST['email'] ?? null;
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Connexion</title>
 </head>
 

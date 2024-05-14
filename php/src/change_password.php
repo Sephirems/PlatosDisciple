@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once(__DIR__ . '/../config/mysql.php');
-require_once(__DIR__ . '/../config/databaseconnect.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
 
 if(isset($_SESSION['user_id']) && isset($_POST['ancien_mot_de_passe'], $_POST['nouveau_mot_de_passe'], $_POST['confirmation_mot_de_passe'])) {
     $idUtilisateur = $_SESSION['user_id'];
@@ -30,7 +30,7 @@ if(isset($_SESSION['user_id']) && isset($_POST['ancien_mot_de_passe'], $_POST['n
                 header('Location: ' . $_SESSION['origine']);
                 unset($_SESSION['origine']);
             } else {
-                header('Location: ../index.php');
+                header('Location:index.php');
             }
             exit;
             

@@ -38,6 +38,12 @@ h5{
     margin-top: 25px;
 }
 
+h6 {
+    color: red;
+    text-align: center;
+    font-size: 40px;
+}
+
 .image1 img {
     height: 500px;
     margin-top: 0px;

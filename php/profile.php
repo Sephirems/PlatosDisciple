@@ -6,9 +6,9 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
 
-require_once(__DIR__ . '/config/mysql.php');
-require_once(__DIR__ . '/config/databaseconnect.php');
-require_once(__DIR__ . '/src/functions.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
+require_once 'functions.php';
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Bienvenue sur Platos Disciple</title>
 </head>
 
@@ -158,9 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     ?>
 
-    <footer>
-        <?php include 'footer.php'; ?>
-    </footer>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -206,4 +204,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </body>
 
+<footer>
+        <?php include 'footer.php'; ?>
+    </footer>
+    
 </html>

@@ -5,7 +5,7 @@ function afficherValeurOuDefaut($valeur, $nomDuChamp) {
 }
 
 function check_like_status($conn, $idUtilisateur, $idOeuvre) {
-    $sql = 'SELECT * FROM favoris WHERE id_utilisateur = :idu AND id_oeuvre = :ido';
+    $sql = 'SELECT * FROM Favoris WHERE id_utilisateur = :idu AND id_oeuvre = :ido';
     $statement = $conn->prepare($sql);
     $statement->execute([
         ':idu' => $idUtilisateur,
@@ -17,8 +17,8 @@ function check_like_status($conn, $idUtilisateur, $idOeuvre) {
 
 function show_most_liked($conn) {
     $sql = 'SELECT f.id_oeuvre, o.*, COUNT(f.id_oeuvre) AS id_o
-    FROM favoris f
-    INNER JOIN oeuvre o ON  f.id_oeuvre = o.id_oeuvre
+    FROM Favoris f
+    INNER JOIN Oeuvre o ON  f.id_oeuvre = o.id_oeuvre
     GROUP BY f.id_oeuvre 
     ORDER BY id_o DESC 
     LIMIT 9';
@@ -30,8 +30,8 @@ function show_most_liked($conn) {
 
 function show_user_likes($conn, $idUtilisateur) {
     $sql = 'SELECT o.*, COUNT(f.id_oeuvre) AS id_o
-    FROM favoris f
-    INNER JOIN oeuvre o ON  f.id_oeuvre = o.id_oeuvre
+    FROM Favoris f
+    INNER JOIN Oeuvre o ON  f.id_oeuvre = o.id_oeuvre
     WHERE f.id_utilisateur = :user_id
     GROUP BY f.id_oeuvre 
     ORDER BY id_o DESC 
@@ -44,7 +44,7 @@ function show_user_likes($conn, $idUtilisateur) {
 
 function show_user_data($conn, $idUtilisateur) {
     $sql = 'SELECT nom_utilisateur, email_utilisateur, numero_de_telephone, date_de_naissance
-    FROM utilisateur u
+    FROM Utilisateur u
     WHERE u.id_utilisateur = :user_id';
     $statement = $conn->prepare($sql);
     $statement->execute([':user_id' => $idUtilisateur]);

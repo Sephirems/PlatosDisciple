@@ -7,9 +7,9 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
 
-require_once(__DIR__ . '/config/mysql.php');
-require_once(__DIR__ . '/config/databaseconnect.php');
-require_once(__DIR__ . '/src/functions.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
+require_once 'functions.php';
 
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
@@ -20,7 +20,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Bienvenue sur Platos Disciple</title>
 
 </head>
@@ -149,8 +149,9 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 </div>
 </body>
 
-</html>
-
 <footer>
     <?php include 'footer.php'; ?>
 </footer>
+
+</html>
+

@@ -8,8 +8,8 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 
 session_start();
-require_once(__DIR__ . '/config/mysql.php');
-require_once(__DIR__ . '/config/databaseconnect.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
 $error_message = ['username' => '', 'email' => '', 'phone' => ''];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$n = isset($_POST['nom_utilisateur']) ? htmlspecialchars($_POST['nom_utilisateur']) : null;
@@ -62,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					':ub' => $b,
 					':ui' => $i
 				]);
+				$_SESSION['loggedUser'] = true;
+				$_SESSION['user_id'] = $conn->lastInsertId();
+				$_SESSION['nom_utilisateur'] = $n;
 				header('Location: index.php?message=OK');
 			} catch (PDOException $e) {
 				$error_message['username'] = 'Erreur lors de l\'insertion des données : ' . $e->getMessage();
@@ -74,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="style.css">
 <html>
 
 <head>

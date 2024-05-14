@@ -2,10 +2,10 @@
 
 session_start();
 
-require_once(__DIR__ . '/../config/mysql.php');
-require_once(__DIR__ . '/../config/databaseconnect.php');
+require_once 'mysql.php';
+require_once 'databaseconnect.php';
 
-$sql = 'DELETE FROM favoris WHERE id_utilisateur = :idu AND id_oeuvre = :ido';
+$sql = 'DELETE FROM Favoris WHERE id_utilisateur = :idu AND id_oeuvre = :ido';
 $statement = $conn->prepare($sql);
 
 try {
@@ -18,7 +18,7 @@ try {
         header('Location: ' . $_SESSION['origine']);
         unset($_SESSION['origine']);
     } else {
-        header('Location: ../index.php');
+        header('Location: index.php');
     }
     exit;
 } catch (PDOException $e) {
