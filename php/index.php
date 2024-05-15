@@ -32,7 +32,11 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     <h3>Découvrez Platos Disciple, explorez des œuvres d’art uniques.</h3>
     <div class="container">
         <div class="image3">
-            <img src="https://classicalwisdom.com/wp-content/uploads/2013/01/socrates-statue.jpg" alt="Platon thinking">
+        <img src="https://classicalwisdom.com/wp-content/uploads/2013/01/socrates-statue.jpg" alt="Description de l'image" usemap="#lien-map" />
+    <map name="lien-map">
+        <!-- Coordonnées x, y et dimensions de la zone cliquable -->
+        <area shape="rect" coords="100,0,300,400" href="egg1.php" alt="Lien vers la page secrète" />
+    </map>
         </div>
         <div class="text">
             <h4>Bienvenue sur <strong>Platos Disciple</strong>, l'endroit idéal pour explorer l'art. Découvrez les œuvres favorites de notre communauté dès la page d'accueil et laissez-vous guider par notre présentation intuitive.</h4>

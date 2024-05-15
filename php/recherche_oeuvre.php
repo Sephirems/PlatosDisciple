@@ -36,8 +36,8 @@ $showPrevButton = '';
     </header>
 
     <form id="search-form" action="" method="get" class="search-form <?php echo !empty($_GET['general_search']) ? 'small-search' : ''; ?>">
-        <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? $_GET['general_search'] : ''; ?>">
-        <input type="submit" value="Rechercher">
+    <input type="text" name="general_search" placeholder="Recherche" value="<?php echo isset($_GET['general_search']) ? htmlspecialchars($_GET['general_search'], ENT_QUOTES, 'UTF-8') : ''; ?>">
+    <input type="submit" value="Rechercher">
     </form>
     <?php
     if (!empty($_GET['general_search'])) {
@@ -47,7 +47,7 @@ $showPrevButton = '';
     <div class="results-container">
         <?php
         if (!empty($_GET['general_search'])) {
-            $searchQuery = urlencode($_GET['general_search']);
+            $searchQuery = urlencode(htmlspecialchars($_GET['general_search'], ENT_QUOTES, 'UTF-8'));
             $url = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=$searchQuery";
             $output = file_get_contents($url);
             if ($output !== FALSE) {
