@@ -7,9 +7,9 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
 
-require_once 'mysql.php';
-require_once 'databaseconnect.php';
-require_once 'functions.php';
+require_once(__DIR__ . 'mysql.php');
+require_once(__DIR__ . 'databaseconnect.php');
+require_once(__DIR__ . 'functions.php');
 
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
@@ -32,7 +32,10 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     <h3>Découvrez Platos Disciple, explorez des œuvres d’art uniques.</h3>
     <div class="container">
         <div class="image3">
-            <img src="https://classicalwisdom.com/wp-content/uploads/2013/01/socrates-statue.jpg" alt="Platon thinking">
+        <img src="platon-status.webp" alt="Platon thinking" usemap="#lien-map" />
+    <map name="lien-map">
+        <area shape="rect" coords="100,0,300,100" href="egg1.php" alt="Lien vers la page secrète" />
+    </map>
         </div>
         <div class="text">
             <h4>Bienvenue sur <strong>Platos Disciple</strong>, l'endroit idéal pour explorer l'art. Découvrez les œuvres favorites de notre communauté dès la page d'accueil et laissez-vous guider par notre présentation intuitive.</h4>
@@ -44,7 +47,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
             <h4>Nous sommes là pour enrichir votre passion pour l'art. Laissez-vous inspirer et transformez votre regard sur l'art avec nous. </h4>
         </div>
         <div class="image1">
-            <img src="https://static.techno-science.net/illustration/Definitions/1200px/s/sanzio-01-plato-aristotle_b6628a13f4c90549453c7839542a7b38.jpg" alt="Platon and his disciple">
+            <img src="platon-disciple.jpg" alt="Platon and his disciple">
         </div>
     </div>
 
@@ -82,12 +85,12 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
                     <div class="button-container">
                         <?php
                         if ($dejalike) {
-                            echo '<form method="POST" action="src/unlike.php">
+                            echo '<form method="POST" action="unlike.php">
                                     <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                     <input type="submit" name="unlike" value="UNLIKE">
                                 </form>';
                         } else {
-                            echo '<form method="POST" action="src/insertion_oeuvre.php">
+                            echo '<form method="POST" action="insertion_oeuvre.php">
                                     <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                     <input type="hidden" name="image" value="' . $row['image'] . '">
                                     <input type="hidden" name="title" value="' . $row['titre'] . '">
@@ -130,7 +133,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 <br>
 <div class="container">
     <div class="image2">
-        <img src="https://cdn.sanity.io/images/cctd4ker/production/c47d68fbeb2ac1df1c97065fc4c9576314114ac2-2100x1150.jpg?rect=539,36,1011,1074&w=3840&q=75&fit=clip&auto=format" alt="MetMuseum Facade">
+        <img src="museum-exterieur.jpg" alt="MetMuseum Facade">
     </div>
     <div class="text">
         <h4>Grâce à l’intégration du prestigieux <a href="https://www.metmuseum.org/fr">Metropolitan Museum of Art</a>, nous vous invitons à un voyage culturel exceptionnel.</h4>
@@ -144,7 +147,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
         <h4>Alors, qu’attendez-vous ? Faites votre première <a href="recherche_oeuvre.php">recherche</a>.</h4>
     </div>
     <div class="image4">
-        <img src="https://cdn.sanity.io/images/cctd4ker/production/441e3b2a3fcc15e770c29d1458351be3697da1ac-5304x5304.jpg?w=3840&q=75&fit=clip&auto=format" alt="Description de l'image">
+        <img src="museum-interieur.jpg" alt="interieur MetMuseum">
     </div>
 </div>
 </body>
