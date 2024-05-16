@@ -9,9 +9,9 @@ session_start();
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
-require_once 'mysql.php';
-require_once 'databaseconnect.php';
-require_once 'functions.php';
+require_once(__DIR__ . 'mysql.php');
+require_once(__DIR__ . 'databaseconnect.php');
+require_once(__DIR__ .'functions.php');
 
 $showNextButton = '';
 $showPrevButton = '';
