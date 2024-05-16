@@ -10,7 +10,7 @@
 <body class="body-header">
     <div class="logo">
         <a href="index.php">
-            <img src="https://media.discordapp.net/attachments/876511185464328314/1239186975571836998/3429208b-f579-4e2c-94b8-a8ac08d523f7-removebg.png?ex=664353cd&is=6642024d&hm=8db53558edbcf685496a79d1d4bb5bbada4871a4d88d1637107d1ba1cca91f15&=&format=webp&quality=lossless" alt="Logo Platos Disciple">
+            <img src="logo.webp" alt="Logo Platos Disciple">
         </a>
     </div>
 
