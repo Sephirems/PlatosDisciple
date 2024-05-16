@@ -6,9 +6,9 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 session_start();
 
-require_once 'mysql.php';
-require_once 'databaseconnect.php';
-require_once 'functions.php';
+require_once(__DIR__ . 'mysql.php');
+require_once(__DIR__ . 'databaseconnect.php');
+require_once(__DIR__ . 'functions.php');
 
 $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 
@@ -125,12 +125,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $idOeuvre = $row['id_oeuvre'];
                         $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
                         if ($dejalike) {
-                            echo '<form class="like-form" method="POST" action="src/unlike.php">
+                            echo '<form class="like-form" method="POST" action="unlike.php">
                                 <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                 <input type="submit" name="unlike" value="UNLIKE">
                             </form>';
                         } else {
-                            echo '<form class="like-form" method="POST" action="src/insertion_oeuvre.php">
+                            echo '<form class="like-form" method="POST" action="insertion_oeuvre.php">
                                 <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                 <input type="hidden" name="image" value="' . $row['image'] . '">
                                 <input type="hidden" name="title" value="' . $row['titre'] . '">
