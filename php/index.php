@@ -21,22 +21,21 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Bienvenue sur Platos Disciple</title>
-
 </head>
 
 <body>
     <header>
         <?php include 'header.php'; ?>
     </header>
-    <h3>Découvrez Platos Disciple, explorez des œuvres d’art uniques.</h3>
+    <h2>Bienvenu(e) sur Platos Disciple !</h2>
+    <h3>Découvrez et explorez des œuvres d’art uniques.</h3>
     <div class="container">
         <div class="image3">
-        <img src="https://classicalwisdom.com/wp-content/uploads/2013/01/socrates-statue.jpg" alt="Description de l'image" usemap="#lien-map" />
-    <map name="lien-map">
-        <!-- Coordonnées x, y et dimensions de la zone cliquable -->
-        <area shape="rect" coords="100,0,300,400" href="egg1.php" alt="Lien vers la page secrète" />
-    </map>
+            <img src="https://classicalwisdom.com/wp-content/uploads/2013/01/socrates-statue.jpg" alt="Description de l'image" usemap="#lien-map" />
+            <map name="lien-map">
+                <!-- Coordonnées x, y et dimensions de la zone cliquable -->
+                <area shape="rect" coords="100,0,300,400" href="egg1.php" alt="Lien vers la page secrète" />
+            </map>
         </div>
         <div class="text">
             <h4>Bienvenue sur <strong>Platos Disciple</strong>, l'endroit idéal pour explorer l'art. Découvrez les œuvres favorites de notre communauté dès la page d'accueil et laissez-vous guider par notre présentation intuitive.</h4>
@@ -86,12 +85,14 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
                     <div class="button-container">
                         <?php
                         if ($dejalike) {
-                            echo '<form method="POST" action="src/unlike.php">
+                            echo '<form id="unlikeForm" method="POST" action="src/unlike.php">
+                                    <div class="unlikeForm" onclick="submitUnlikeForm()">
                                     <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                    <input type="submit" name="unlike" value="UNLIKE">
+                                    <img src="images/liked.png" /> </div>
                                 </form>';
                         } else {
-                            echo '<form method="POST" action="src/insertion_oeuvre.php">
+                            echo '<form id="likeForm" method="POST" action="src/insertion_oeuvre.php">
+                                    <div class="likeForm" onclick="submitLikeForm()">   
                                     <input type="hidden" name="objectID" value="' . $idOeuvre . '">
                                     <input type="hidden" name="image" value="' . $row['image'] . '">
                                     <input type="hidden" name="title" value="' . $row['titre'] . '">
@@ -103,7 +104,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
                                     <input type="hidden" name="dimensions" value="' . $row['taille'] . '">
                                     <input type="hidden" name="country" value="' . $row['pays'] . '">
                                     <input type="hidden" name="classification" value="' . $row['classification'] . '">
-                                    <input type="submit" value="LIKE">
+                                    <img src="images/unliked.png" /> </div>
                                 </form>';
                         }
                         ?>
@@ -120,16 +121,7 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
     }
     ?>
 </div>
-<script>
-    const seeMoreButtons = document.querySelectorAll('.see-more');
-    seeMoreButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const hiddenData = button.nextElementSibling;
-            hiddenData.classList.toggle('hidden');
-            button.textContent = hiddenData.classList.contains('hidden') ? 'Voir plus' : 'Voir moins';
-        });
-    });
-</script>
+<br>
 <h3>Découvrez l'Art à Travers les Âges avec Notre Moteur de Recherche Innovant</h3>
 <br>
 <div class="container">
@@ -151,6 +143,26 @@ $_SESSION['origine'] = $_SERVER['REQUEST_URI'];
         <img src="https://cdn.sanity.io/images/cctd4ker/production/441e3b2a3fcc15e770c29d1458351be3697da1ac-5304x5304.jpg?w=3840&q=75&fit=clip&auto=format" alt="Description de l'image">
     </div>
 </div>
+<script>
+    const seeMoreButtons = document.querySelectorAll('.see-more');
+    seeMoreButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const hiddenData = button.nextElementSibling;
+            hiddenData.classList.toggle('hidden');
+            button.textContent = hiddenData.classList.contains('hidden') ? 'Voir plus' : 'Voir moins';
+        });
+    })
+
+    function submitLikeForm() {
+        const form = document.getElementById("likeForm");
+        form.submit();
+    }
+
+    function submitUnlikeForm() {
+        const form = document.getElementById("unlikeForm");
+        form.submit();
+    }
+</script>
 </body>
 
 </html>

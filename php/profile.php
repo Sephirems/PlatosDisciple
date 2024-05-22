@@ -125,25 +125,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $idOeuvre = $row['id_oeuvre'];
                         $dejalike = check_like_status($conn, $idUtilisateur, $idOeuvre);
                         if ($dejalike) {
-                            echo '<form class="like-form" method="POST" action="src/unlike.php">
+                            echo '<form id="unlikeForm" method="POST" action="src/unlike.php">
+                                <div class="unlikeForm" onclick="submitUnlikeForm()">
                                 <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                <input type="submit" name="unlike" value="UNLIKE">
-                            </form>';
+                                <img src="images/liked.png"/>
+                                </div>
+                            </form>'; 
                         } else {
-                            echo '<form class="like-form" method="POST" action="src/insertion_oeuvre.php">
-                                <input type="hidden" name="objectID" value="' . $idOeuvre . '">
-                                <input type="hidden" name="image" value="' . $row['image'] . '">
-                                <input type="hidden" name="title" value="' . $row['titre'] . '">
-                                <input type="hidden" name="culture" value="' . $row['culture'] . '">
-                                <input type="hidden" name="artistDisplayName" value="' . $row['nom_artiste'] . '">
-                                <input type="hidden" name="artistDisplayBio" value="' . $row['bio_artiste'] . '">
-                                <input type="hidden" name="artistNationality" value="' . $row['nationalite_artiste'] . '">
-                                <input type="hidden" name="objectEndDate" value="' . $row['date_fin'] . '">
-                                <input type="hidden" name="dimensions" value="' . $row['taille'] . '">
-                                <input type="hidden" name="country" value="' . $row['pays'] . '">
-                                <input type="hidden" name="classification" value="' . $row['classification'] . '">
-                                <input type="submit" value="LIKE">
-                            </form>';
+                        echo '<form id="likeForm" method="POST" action="src/insertion_oeuvre.php">
+                        <div class="likeForm" onclick="submitLikeForm()">
+                        <input type="hidden" name="objectID" value="' . $idOeuvre . '">
+                            <input type="hidden" name="image" value="' . $imageUrl . '">
+                            <input type="hidden" name="title" value="' . $objectData['title'] . '">
+                            <input type="hidden" name="culture" value="' . $objectData['culture'] . '">
+                            <input type="hidden" name="artistDisplayName" value="' . $objectData['artistDisplayName'] . '">
+                            <input type="hidden" name="artistDisplayBio" value="' . $objectData['artistDisplayBio'] . '">
+                            <input type="hidden" name="artistNationality" value="' . $objectData['artistNationality'] . '">
+                            <input type="hidden" name="objectEndDate" value="' . $objectData['objectEndDate'] . '">
+                            <input type="hidden" name="dimensions" value="' . $objectData['dimensions'] . '">
+                            <input type="hidden" name="country" value="' . $objectData['country'] . '">
+                            <input type="hidden" name="classification" value="' . $objectData['classification'] . '">
+                            <img src="images/unliked.png"/>
+                        </div> 
+                        </form>';
                         }
                     } else {
                         echo "<p>Connectez-vous pour liker cette oeuvre. <a href='login.php'>Se connecter</a></p>";
@@ -203,6 +207,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             });
         });
+        function  submitLikeForm() {
+    const form = document.getElementById("likeForm");
+    form.submit();
+}
+function  submitUnlikeForm() {
+    const form = document.getElementById("unlikeForm");
+    form.submit();
+}
     </script>
 </body>
 
